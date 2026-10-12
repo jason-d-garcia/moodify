@@ -1,0 +1,8 @@
+node_modules
+dist
+*.bin
+__pycache__
+lyrics*.csv
+songs.csv
+*.xlsx
+data-raw
