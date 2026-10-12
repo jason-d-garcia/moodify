@@ -1,1705 +1,2310 @@
 {
- "source": "bert",
- "note": "bert-base-cased fine-tuned on MoodyLyrics (Jason's lyrics.csv, 1,872 songs after cleaning). Held-out test split only: 125/141 correct (88.7%). Probabilities temperature-scaled with T=1.7557 fitted on the 140 validation songs.",
- "labels": [
-  "happy",
-  "sad",
-  "angry",
-  "relaxed"
- ],
+ "source": "bert-va",
+ "note": "bert-base-cased fine-tuned to regress valence/arousal on MERGE lyrics (Louro et al. 2024, CC BY-NC 4.0). Held-out test split only; 2 of 256 test songs left out for their titles.",
+ "metrics": {
+  "valence": {
+   "pearson": 0.6958,
+   "r2": 0.4731,
+   "mae": 0.2384
+  },
+  "arousal": {
+   "pearson": 0.5585,
+   "r2": 0.289,
+   "mae": 0.1886
+  },
+  "baseline_pearson": {
+   "valence": 0.462,
+   "arousal": 0.106
+  },
+  "n_train": 2044,
+  "n_test": 256
+ },
  "songs": [
   {
-   "title": "Pittsburgh",
-   "artist": "We Are Scientists",
+   "title": "All Through the Night",
+   "artist": "Ella Fitzgerald",
    "split": "test",
-   "probs": {
-    "happy": 0.0142,
-    "sad": 0.0051,
-    "angry": 0.0096,
-    "relaxed": 0.9711
-   },
-   "true_mood": "relaxed"
+   "valence": 0.2761,
+   "arousal": -0.1831,
+   "true_valence": 0.2175,
+   "true_arousal": -0.245
   },
   {
-   "title": "Easy Skanking",
-   "artist": "Bob Marley & The Wailers",
+   "title": "The Way You Look Tonight",
+   "artist": "Fred Astaire",
    "split": "test",
-   "probs": {
-    "happy": 0.0095,
-    "sad": 0.0128,
-    "angry": 0.0095,
-    "relaxed": 0.9681
-   },
-   "true_mood": "relaxed"
+   "valence": 0.4786,
+   "arousal": 0.0936,
+   "true_valence": 0.5,
+   "true_arousal": -0.4775
   },
   {
-   "title": "Inside",
-   "artist": "Kirk Whalum",
+   "title": "Spanish Guitar",
+   "artist": "Toni Braxton",
    "split": "test",
-   "probs": {
-    "happy": 0.0096,
-    "sad": 0.0052,
-    "angry": 0.0076,
-    "relaxed": 0.9776
-   },
-   "true_mood": "relaxed"
+   "valence": 0.4814,
+   "arousal": -0.1021,
+   "true_valence": 0.4725,
+   "true_arousal": -0.19
   },
   {
-   "title": "No Se Vivir Sin Ti",
-   "artist": "Conjunto Primavera",
+   "title": "The Wedding Cake Walk",
+   "artist": "Fred Astaire",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.5552,
+   "arousal": 0.1969,
+   "true_valence": 0.58,
+   "true_arousal": 0.1625
   },
   {
-   "title": "I'll Believe In Anything",
-   "artist": "Wolf Parade",
+   "title": "I Go to Pieces",
+   "artist": "Linda Ronstadt",
    "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9637,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.536,
+   "arousal": -0.1429,
+   "true_valence": -0.065,
+   "true_arousal": -0.0912
   },
   {
-   "title": "The Devil Cried",
-   "artist": "Black Sabbath",
+   "title": "Showdown",
+   "artist": "Barcode",
    "split": "test",
-   "probs": {
-    "happy": 0.0153,
-    "sad": 0.0112,
-    "angry": 0.9608,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.3834,
+   "arousal": 0.2149,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
   },
   {
-   "title": "Don't Answer The Door",
-   "artist": "B.B. King",
+   "title": "War",
+   "artist": "Bruce Springsteen",
    "split": "test",
-   "probs": {
-    "happy": 0.0077,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": -0.4262,
+   "arousal": 0.074,
+   "true_valence": -0.625,
+   "true_arousal": 0.625
   },
   {
-   "title": "Con Tu Nombre",
-   "artist": "Ricky Martin",
+   "title": "Rudolph the Red-Nosed Reindeer",
+   "artist": "Alan Jackson",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.5028,
+   "arousal": -0.1943,
+   "true_valence": 0.46,
+   "true_arousal": -0.34
   },
   {
-   "title": "Miracle",
-   "artist": "Whitney Houston",
+   "title": "Desire Me",
+   "artist": "Sam Cooke",
    "split": "test",
-   "probs": {
-    "happy": 0.9654,
-    "sad": 0.0051,
-    "angry": 0.02,
-    "relaxed": 0.0095
-   },
-   "true_mood": "happy"
+   "valence": 0.4145,
+   "arousal": -0.0222,
+   "true_valence": 0.605,
+   "true_arousal": -0.155
   },
   {
-   "title": "Heart Of Stone",
-   "artist": "The Raveonettes",
+   "title": "In Sufferance",
+   "artist": "Disincarnate",
    "split": "test",
-   "probs": {
-    "happy": 0.0361,
-    "sad": 0.7232,
-    "angry": 0.1746,
-    "relaxed": 0.0661
-   },
-   "true_mood": "angry"
+   "valence": -0.3664,
+   "arousal": 0.1298,
+   "true_valence": -0.5475,
+   "true_arousal": 0.1275
   },
   {
-   "title": "Bo Diddley",
-   "artist": "Bo Diddley",
+   "title": "The Little Vagabond",
+   "artist": "Greg Brown",
    "split": "test",
-   "probs": {
-    "happy": 0.0077,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": 0.4657,
+   "arousal": -0.3086,
+   "true_valence": 0.4725,
+   "true_arousal": -0.525
   },
   {
-   "title": "To Be Loved",
-   "artist": "Jackie Wilson",
+   "title": "The Way Worn Traveler",
+   "artist": "Johnny Cash",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": 0.055,
+   "arousal": -0.0069,
+   "true_valence": 0.5138,
+   "true_arousal": -0.1962
   },
   {
-   "title": "Sweet Fire Of Love",
-   "artist": "Robbie Robertson",
+   "title": "Chords of Fame",
+   "artist": "Marianne Faithfull",
    "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9624,
-    "relaxed": 0.0141
-   },
-   "true_mood": "angry"
+   "valence": 0.2524,
+   "arousal": -0.1079,
+   "true_valence": 0.5512,
+   "true_arousal": -0.1962
   },
   {
-   "title": "Floods",
-   "artist": "Pantera",
+   "title": "You Take Part in Creating the System [Bonus Track]",
+   "artist": "Discharge",
    "split": "test",
-   "probs": {
-    "happy": 0.0154,
-    "sad": 0.3295,
-    "angry": 0.6348,
-    "relaxed": 0.0203
-   },
-   "true_mood": "angry"
+   "valence": -0.3466,
+   "arousal": 0.1241,
+   "true_valence": -0.39,
+   "true_arousal": 0.0975
   },
   {
-   "title": "Got A Hold On Me",
-   "artist": "Christine McVie",
+   "title": "How Can We Live Like This",
+   "artist": "Youth Brigade",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": -0.5491,
+   "arousal": -0.0948,
+   "true_valence": -0.555,
+   "true_arousal": 0.16
   },
   {
-   "title": "Can't Get Enough",
-   "artist": "Bad Company",
+   "title": "If It Weren't For Him",
+   "artist": "Vince Gill",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": -0.6204,
+   "arousal": -0.2213,
+   "true_valence": -0.3375,
+   "true_arousal": -0.35
   },
   {
-   "title": "Upside Down",
-   "artist": "OFF!",
+   "title": "You'd Be So Nice to Come Home To",
+   "artist": "Art Pepper",
    "split": "test",
-   "probs": {
-    "happy": 0.0051,
-    "sad": 0.9659,
-    "angry": 0.0112,
-    "relaxed": 0.0178
-   },
-   "true_mood": "sad"
+   "valence": 0.4533,
+   "arousal": -0.1886,
+   "true_valence": 0.5112,
+   "true_arousal": -0.4075
   },
   {
-   "title": "Fear Of The Dark",
-   "artist": "Iron Maiden",
+   "title": "Evil Woman",
+   "artist": "Champion Jack Dupree",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0127,
-    "angry": 0.9606,
-    "relaxed": 0.0141
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "War Ensemble",
-   "artist": "Slayer",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0095,
-    "angry": 0.965,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Bless His Name",
-   "artist": "Jeremy Riddle",
-   "split": "test",
-   "probs": {
-    "happy": 0.9756,
-    "sad": 0.0051,
-    "angry": 0.0096,
-    "relaxed": 0.0096
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Great And Mighty Is Our God",
-   "artist": "Donnie McClurkin",
-   "split": "test",
-   "probs": {
-    "happy": 0.961,
-    "sad": 0.0051,
-    "angry": 0.0112,
-    "relaxed": 0.0228
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Will You Love Me Tomorrow?",
-   "artist": "Carole King",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "What Love Has Joined Together",
-   "artist": "Queen Latifah",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Twist Of Fate",
-   "artist": "Visions Of Atlantis",
-   "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9637,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "So Insane",
-   "artist": "Discovery",
-   "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0112,
-    "angry": 0.9621,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Rainbows",
-   "artist": "Malachai",
-   "split": "test",
-   "probs": {
-    "happy": 0.0096,
-    "sad": 0.0052,
-    "angry": 0.0076,
-    "relaxed": 0.9776
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Love Song",
-   "artist": "Tesla",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Shellshock",
-   "artist": "New Order",
-   "split": "test",
-   "probs": {
-    "happy": 0.0149,
-    "sad": 0.4646,
-    "angry": 0.5042,
-    "relaxed": 0.0164
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Feel The Pressure",
-   "artist": "Incognito",
-   "split": "test",
-   "probs": {
-    "happy": 0.034,
-    "sad": 0.4232,
-    "angry": 0.5064,
-    "relaxed": 0.0363
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Mudshovel",
-   "artist": "Staind",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Circuital",
-   "artist": "My Morning Jacket",
-   "split": "test",
-   "probs": {
-    "happy": 0.0104,
-    "sad": 0.8932,
-    "angry": 0.0329,
-    "relaxed": 0.0634
-   },
-   "true_mood": "sad"
-  },
-  {
-   "title": "Bad Time",
-   "artist": "Grand Funk Railroad",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "P.S. I Love You",
-   "artist": "The Beatles",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Heart And Soul",
-   "artist": "Joy Division",
-   "split": "test",
-   "probs": {
-    "happy": 0.0112,
-    "sad": 0.0141,
-    "angry": 0.9621,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Rock Me Gently",
-   "artist": "Andy Kim",
-   "split": "test",
-   "probs": {
-    "happy": 0.9546,
-    "sad": 0.005,
-    "angry": 0.0111,
-    "relaxed": 0.0293
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Wicked Garden",
-   "artist": "Stone Temple Pilots",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Let The Serpent Sleep",
-   "artist": "Elf Power",
-   "split": "test",
-   "probs": {
-    "happy": 0.0074,
-    "sad": 0.0292,
-    "angry": 0.0126,
-    "relaxed": 0.9508
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Love",
-   "artist": "Air",
-   "split": "test",
-   "probs": {
-    "happy": 0.1431,
-    "sad": 0.7349,
-    "angry": 0.096,
-    "relaxed": 0.026
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Anyone Who Had A Heart",
-   "artist": "Luther Vandross",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "The End",
-   "artist": "The Beatles",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "God Of Wonders",
-   "artist": "Third Day",
-   "split": "test",
-   "probs": {
-    "happy": 0.0167,
-    "sad": 0.0051,
-    "angry": 0.0076,
-    "relaxed": 0.9706
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Slowly We Rot",
-   "artist": "Obituary",
-   "split": "test",
-   "probs": {
-    "happy": 0.0126,
-    "sad": 0.0176,
-    "angry": 0.9571,
-    "relaxed": 0.0126
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Paradise",
-   "artist": "Tesla",
-   "split": "test",
-   "probs": {
-    "happy": 0.2331,
-    "sad": 0.0062,
-    "angry": 0.0181,
-    "relaxed": 0.7426
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Pain",
-   "artist": "Three Days Grace",
-   "split": "test",
-   "probs": {
-    "happy": 0.0198,
-    "sad": 0.0111,
-    "angry": 0.9565,
-    "relaxed": 0.0126
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Dream Baby",
-   "artist": "Glen Campbell",
-   "split": "test",
-   "probs": {
-    "happy": 0.2936,
-    "sad": 0.006,
-    "angry": 0.0228,
-    "relaxed": 0.6776
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "I've Been Lonely For So Long",
-   "artist": "Frederick Knight",
-   "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.9776,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "sad"
-  },
-  {
-   "title": "There Goes My Baby",
-   "artist": "Usher",
-   "split": "test",
-   "probs": {
-    "happy": 0.0076,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.9776
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Whenever I Call You Friend",
-   "artist": "Kenny Loggins",
-   "split": "test",
-   "probs": {
-    "happy": 0.9555,
-    "sad": 0.005,
-    "angry": 0.0094,
-    "relaxed": 0.0301
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Things I Did When I Was Dead",
-   "artist": "No Age",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "The Way You Love Me",
-   "artist": "Faith Hill",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "People Say",
-   "artist": "Portugal. The Man",
-   "split": "test",
-   "probs": {
-    "happy": 0.0166,
-    "sad": 0.0095,
-    "angry": 0.9613,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "All The World",
-   "artist": "Point Of Grace",
-   "split": "test",
-   "probs": {
-    "happy": 0.0167,
-    "sad": 0.0051,
-    "angry": 0.0112,
-    "relaxed": 0.967
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Somewhere There's A Love",
-   "artist": "Shalamar",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Happy",
-   "artist": "Fischerspooner",
-   "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.98,
-    "angry": 0.0097,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
-  },
-  {
-   "title": "Take Everything",
-   "artist": "Greg Laswell",
-   "split": "test",
-   "probs": {
-    "happy": 0.0076,
-    "sad": 0.0076,
-    "angry": 0.0076,
-    "relaxed": 0.9771
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Beautiful One",
-   "artist": "By The Tree",
-   "split": "test",
-   "probs": {
-    "happy": 0.9756,
-    "sad": 0.0051,
-    "angry": 0.0096,
-    "relaxed": 0.0096
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "I Just Wanna Make Love To You",
-   "artist": "Jimmy Smith",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "I Don't Wanna Lose Your Love",
-   "artist": "Santana",
-   "split": "test",
-   "probs": {
-    "happy": 0.0095,
-    "sad": 0.0166,
-    "angry": 0.0112,
-    "relaxed": 0.9627
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Mad About You",
-   "artist": "Slaughter",
-   "split": "test",
-   "probs": {
-    "happy": 0.0208,
-    "sad": 0.0094,
-    "angry": 0.9571,
-    "relaxed": 0.0126
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Down To My Last Teardrop",
-   "artist": "Tanya Tucker",
-   "split": "test",
-   "probs": {
-    "happy": 0.0219,
-    "sad": 0.0051,
-    "angry": 0.0076,
-    "relaxed": 0.9654
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Lotta Love",
-   "artist": "Nicolette Larson",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "When You Talk About Love",
-   "artist": "Patti LaBelle",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Nobody's Fault But Mine",
-   "artist": "Led Zeppelin",
-   "split": "test",
-   "probs": {
-    "happy": 0.0152,
-    "sad": 0.951,
-    "angry": 0.0186,
-    "relaxed": 0.0152
-   },
-   "true_mood": "sad"
-  },
-  {
-   "title": "Supermassive Black Hole",
-   "artist": "Muse",
-   "split": "test",
-   "probs": {
-    "happy": 0.0123,
-    "sad": 0.9336,
-    "angry": 0.0301,
-    "relaxed": 0.0239
-   },
-   "true_mood": "sad"
-  },
-  {
-   "title": "Take That To The Bank",
-   "artist": "Shalamar",
-   "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "It Is To You",
-   "artist": "Byron Cage",
-   "split": "test",
-   "probs": {
-    "happy": 0.9586,
-    "sad": 0.0075,
-    "angry": 0.0111,
-    "relaxed": 0.0227
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "The Fire",
-   "artist": "Reel Big Fish",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "It's Gonna Take A Miracle",
-   "artist": "Deniece Williams",
-   "split": "test",
-   "probs": {
-    "happy": 0.9759,
-    "sad": 0.0051,
-    "angry": 0.0113,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Fire In Your New Shoes",
-   "artist": "Kaskade",
-   "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0095,
-    "angry": 0.965,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Silent Night",
-   "artist": "Bing Crosby",
-   "split": "test",
-   "probs": {
-    "happy": 0.0076,
-    "sad": 0.0076,
-    "angry": 0.0096,
-    "relaxed": 0.9751
-   },
-   "true_mood": "relaxed"
-  },
-  {
-   "title": "Race Of Doom",
-   "artist": "Devo",
-   "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9637,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
-  },
-  {
-   "title": "Hit Me With Your Best Shot",
-   "artist": "Pat Benatar",
-   "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9637,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.2784,
+   "arousal": 0.2586,
+   "true_valence": -0.515,
+   "true_arousal": -0.1125
   },
   {
    "title": "War Pigs",
-   "artist": "Cake",
+   "artist": "Black Sabbath",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.4141,
+   "arousal": 0.1565,
+   "true_valence": -0.85,
+   "true_arousal": 0.7
   },
   {
-   "title": "Only The Lonely",
-   "artist": "The Motels",
+   "title": "Jimmies Dream",
+   "artist": "Crumbsuckers",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.9795,
-    "angry": 0.0077,
-    "relaxed": 0.0077
-   },
-   "true_mood": "sad"
+   "valence": -0.3064,
+   "arousal": 0.03,
+   "true_valence": -0.4475,
+   "true_arousal": 0.0975
   },
   {
-   "title": "It's Not A Tumor",
-   "artist": "Austrian Death Machine",
+   "title": "Crush 'Em",
+   "artist": "Megadeth",
    "split": "test",
-   "probs": {
-    "happy": 0.026,
-    "sad": 0.6831,
-    "angry": 0.2613,
-    "relaxed": 0.0296
-   },
-   "true_mood": "angry"
+   "valence": -0.3751,
+   "arousal": 0.2707,
+   "true_valence": -0.375,
+   "true_arousal": 0.0875
   },
   {
-   "title": "Nice 'N' Easy",
-   "artist": "Frank Sinatra",
+   "title": "Let’s Go Crazy",
+   "artist": "Prince",
    "split": "test",
-   "probs": {
-    "happy": 0.054,
-    "sad": 0.033,
-    "angry": 0.8603,
-    "relaxed": 0.0527
-   },
-   "true_mood": "relaxed"
+   "valence": 0.1496,
+   "arousal": -0.1134,
+   "true_valence": 0.3625,
+   "true_arousal": 0.4875
   },
   {
-   "title": "Nobody's Fault But My Own",
-   "artist": "Beck",
+   "title": "Apocalypse Politics",
+   "artist": "Joan of Arc",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.7361,
-    "angry": 0.242,
-    "relaxed": 0.0092
-   },
-   "true_mood": "sad"
+   "valence": 0.0986,
+   "arousal": -0.0917,
+   "true_valence": 0.4738,
+   "true_arousal": -0.26
   },
   {
-   "title": "Dos Locos",
-   "artist": "Monchy & Alexandra",
+   "title": "My City of Ruins",
+   "artist": "Bruce Springsteen",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.2344,
+   "arousal": 0.2075,
+   "true_valence": -0.52,
+   "true_arousal": -0.2975
   },
   {
-   "title": "That Smell",
-   "artist": "Lynyrd Skynyrd",
+   "title": "You Make Me Believe",
+   "artist": "Kenny G",
    "split": "test",
-   "probs": {
-    "happy": 0.0051,
-    "sad": 0.9768,
-    "angry": 0.0129,
-    "relaxed": 0.0051
-   },
-   "true_mood": "sad"
+   "valence": 0.6529,
+   "arousal": 0.1255,
+   "true_valence": 0.3875,
+   "true_arousal": -0.49
   },
   {
-   "title": "Got You Home",
-   "artist": "Luther Vandross",
+   "title": "House on the Lake",
+   "artist": "Rosanne Cash",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.0077,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": -0.2725,
+   "arousal": -0.31,
+   "true_valence": -0.3762,
+   "true_arousal": -0.3713
   },
   {
-   "title": "I Can't Give You Anything But Love",
-   "artist": "Smokey Robinson",
+   "title": "Hard Walking Hanna",
+   "artist": "Jimmy Reed",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": 0.3601,
+   "arousal": 0.1885,
+   "true_valence": -0.5,
+   "true_arousal": -0.1125
   },
   {
-   "title": "Oficialmente Loco",
-   "artist": "Bronco",
+   "title": "Dead Stop",
+   "artist": "Negative Approach",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.4289,
+   "arousal": 0.064,
+   "true_valence": -0.39,
+   "true_arousal": 0.175
   },
   {
-   "title": "Easy To Love",
-   "artist": "Patricia Barber",
+   "title": "Baby Makin' Hips",
+   "artist": "Fantasia",
    "split": "test",
-   "probs": {
-    "happy": 0.1122,
-    "sad": 0.0069,
-    "angry": 0.0129,
-    "relaxed": 0.868
-   },
-   "true_mood": "relaxed"
+   "valence": 0.4837,
+   "arousal": 0.4095,
+   "true_valence": 0.41,
+   "true_arousal": 0.3375
   },
   {
-   "title": "Lip Gloss And Black",
-   "artist": "Atreyu",
+   "title": "A Satisfied Mind",
+   "artist": "Bob Dylan",
    "split": "test",
-   "probs": {
-    "happy": 0.0051,
-    "sad": 0.9768,
-    "angry": 0.0129,
-    "relaxed": 0.0051
-   },
-   "true_mood": "angry"
+   "valence": 0.2831,
+   "arousal": -0.0685,
+   "true_valence": 0.205,
+   "true_arousal": -0.045
   },
   {
-   "title": "Alone Again",
-   "artist": "Dokken",
+   "title": "Sex. Murder. Art.",
+   "artist": "Slayer",
    "split": "test",
-   "probs": {
-    "happy": 0.0051,
-    "sad": 0.9759,
-    "angry": 0.0076,
-    "relaxed": 0.0113
-   },
-   "true_mood": "sad"
+   "valence": -0.4031,
+   "arousal": 0.1886,
+   "true_valence": -0.39,
+   "true_arousal": 0.0975
   },
   {
-   "title": "I Feel Weird",
-   "artist": "Steel Train",
+   "title": "I Wanna Grow Up To Be a Politician",
+   "artist": "The Byrds",
    "split": "test",
-   "probs": {
-    "happy": 0.0112,
-    "sad": 0.0127,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.1667,
+   "arousal": -0.025,
+   "true_valence": 0.65,
+   "true_arousal": 0.2488
   },
   {
-   "title": "Sexy Little Thing",
-   "artist": "Chickenfoot",
+   "title": "Wish you were here",
+   "artist": "Pink Floyd",
    "split": "test",
-   "probs": {
-    "happy": 0.9756,
-    "sad": 0.0051,
-    "angry": 0.0096,
-    "relaxed": 0.0096
-   },
-   "true_mood": "happy"
+   "valence": -0.2612,
+   "arousal": -0.2917,
+   "true_valence": -0.425,
+   "true_arousal": -0.575
   },
   {
-   "title": "I'm That Kind Of Girl",
-   "artist": "Patty Loveless",
+   "title": "Love on Your Side (Rap Boy Rap)",
+   "artist": "Thompson Twins",
    "split": "test",
-   "probs": {
-    "happy": 0.0076,
-    "sad": 0.0076,
-    "angry": 0.0076,
-    "relaxed": 0.9771
-   },
-   "true_mood": "relaxed"
+   "valence": 0.4557,
+   "arousal": 0.1143,
+   "true_valence": -0.3425,
+   "true_arousal": -0.2275
   },
   {
-   "title": "Another Place, Another Time",
-   "artist": "Jerry Lee Lewis",
+   "title": "Gets Me Through",
+   "artist": "Ozzy Osbourne",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.1146,
+   "arousal": -0.1353,
+   "true_valence": -0.21,
+   "true_arousal": 0.0875
   },
   {
-   "title": "Cyanide",
-   "artist": "Metallica",
+   "title": "Baby, I'm for Real",
+   "artist": "The Originals",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.98,
-    "angry": 0.0097,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.2459,
+   "arousal": -0.0012,
+   "true_valence": 0.37,
+   "true_arousal": -0.49
   },
   {
-   "title": "U.R.A. Fever",
-   "artist": "The Kills",
+   "title": "Foolin' Myself",
+   "artist": "Billie Holiday",
    "split": "test",
-   "probs": {
-    "happy": 0.0192,
-    "sad": 0.8277,
-    "angry": 0.1113,
-    "relaxed": 0.0418
-   },
-   "true_mood": "sad"
+   "valence": -0.2932,
+   "arousal": 0.0274,
+   "true_valence": -0.4375,
+   "true_arousal": -0.42
   },
   {
-   "title": "All The Time",
-   "artist": "Vivian Girls",
+   "title": "Laura (What's He Got That I Ain't Got)",
+   "artist": "Leon Ashley",
    "split": "test",
-   "probs": {
-    "happy": 0.014,
-    "sad": 0.0165,
-    "angry": 0.9556,
-    "relaxed": 0.014
-   },
-   "true_mood": "sad"
+   "valence": 0.0732,
+   "arousal": -0.2123,
+   "true_valence": -0.5475,
+   "true_arousal": -0.0525
   },
   {
-   "title": "Pinguinos En La Cama",
-   "artist": "Ricardo Arjona",
+   "title": "That's When I See the Blue (In Your Pretty Brown Eyes)",
+   "artist": "Jim Reeves",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.3188,
+   "arousal": -0.1479,
+   "true_valence": -0.3162,
+   "true_arousal": -0.3312
   },
   {
-   "title": "Little Girl Blue",
-   "artist": "Linda Ronstadt",
+   "title": "Straight to Hell",
+   "artist": "Flotsam and Jetsam",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.0077,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": -0.4449,
+   "arousal": 0.1083,
+   "true_valence": -0.2562,
+   "true_arousal": 0.0825
   },
   {
-   "title": "The Way That You Love Me",
-   "artist": "Paula Abdul",
+   "title": "Let's Wait Awhile",
+   "artist": "Janet Jackson",
    "split": "test",
-   "probs": {
-    "happy": 0.974,
-    "sad": 0.0051,
-    "angry": 0.0096,
-    "relaxed": 0.0113
-   },
-   "true_mood": "happy"
+   "valence": 0.5726,
+   "arousal": -0.1075,
+   "true_valence": 0.5375,
+   "true_arousal": -0.4088
   },
   {
-   "title": "Lover Please",
-   "artist": "Clyde McPhatter",
+   "title": "Red Blue Jeans and a Pony Tail",
+   "artist": "Gene Vincent",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.98,
-    "angry": 0.0097,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.5813,
+   "arousal": 0.2991,
+   "true_valence": 0.6125,
+   "true_arousal": 0.45
   },
   {
-   "title": "Desde Que",
-   "artist": "Liquits",
+   "title": "One Voice",
+   "artist": "Barry Manilow",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.0073,
+   "arousal": -0.2861,
+   "true_valence": 0.605,
+   "true_arousal": -0.4575
   },
   {
-   "title": "One",
-   "artist": "Tyrese",
+   "title": "Moody's Mood for Love",
+   "artist": "Rachelle Ferrell",
    "split": "test",
-   "probs": {
-    "happy": 0.0113,
-    "sad": 0.0096,
-    "angry": 0.0076,
-    "relaxed": 0.9715
-   },
-   "true_mood": "relaxed"
+   "valence": 0.621,
+   "arousal": 0.332,
+   "true_valence": 0.555,
+   "true_arousal": -0.19
   },
   {
-   "title": "Firefight",
-   "artist": "Blackguard",
+   "title": "Sally Sue Brown",
+   "artist": "Bob Dylan",
    "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0095,
-    "angry": 0.9637,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.0071,
+   "arousal": 0.0441,
+   "true_valence": 0.5938,
+   "true_arousal": 0.215
   },
   {
-   "title": "The Point Of It All",
-   "artist": "Anthony Hamilton",
+   "title": "The Bleeding",
+   "artist": "Five Finger Deadth Punch",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": -0.5223,
+   "arousal": 0.0003,
+   "true_valence": -0.75,
+   "true_arousal": 0.7
   },
   {
-   "title": "Sweet Home Chicago",
-   "artist": "The Blues Brothers",
+   "title": "We Are Family",
+   "artist": "Chic",
    "split": "test",
-   "probs": {
-    "happy": 0.0077,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": 0.643,
+   "arousal": 0.2286,
+   "true_valence": 0.6775,
+   "true_arousal": 0.2962
   },
   {
-   "title": "Sun King",
-   "artist": "The Cult",
+   "title": "Out of Mind",
+   "artist": "The Cure",
    "split": "test",
-   "probs": {
-    "happy": 0.0113,
-    "sad": 0.0051,
-    "angry": 0.0076,
-    "relaxed": 0.9759
-   },
-   "true_mood": "relaxed"
+   "valence": -0.2848,
+   "arousal": 0.0342,
+   "true_valence": -0.2625,
+   "true_arousal": 0.1425
   },
   {
-   "title": "I Feel Love",
-   "artist": "Donna Summer",
+   "title": "Storm in a Teacup",
+   "artist": "Erasure",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": -0.1401,
+   "arousal": -0.2837,
+   "true_valence": -0.1462,
+   "true_arousal": -0.2625
   },
   {
-   "title": "Lonely Boy",
-   "artist": "Andrew Gold",
+   "title": "I Wanna Hold You",
+   "artist": "Al Green",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.98,
-    "angry": 0.0097,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.4248,
+   "arousal": 0.0332,
+   "true_valence": 0.6062,
+   "true_arousal": 0.3
   },
   {
-   "title": "Vitamin R",
-   "artist": "Chevelle",
+   "title": "In Amber",
+   "artist": "Love as Laughter",
    "split": "test",
-   "probs": {
-    "happy": 0.0112,
-    "sad": 0.0127,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.326,
+   "arousal": -0.0569,
+   "true_valence": -0.3375,
+   "true_arousal": -0.055
   },
   {
-   "title": "It Don't Come Easy",
-   "artist": "Ringo Starr",
+   "title": "Lately",
+   "artist": "Stevie Wonder",
    "split": "test",
-   "probs": {
-    "happy": 0.0077,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": -0.5481,
+   "arousal": -0.2829,
+   "true_valence": -0.6,
+   "true_arousal": -0.425
   },
   {
-   "title": "Love Rollercoaster",
-   "artist": "The Ohio Players",
+   "title": "The Mexican 2002",
+   "artist": "Marc Anthony",
    "split": "test",
-   "probs": {
-    "happy": 0.8982,
-    "sad": 0.0089,
-    "angry": 0.0196,
-    "relaxed": 0.0732
-   },
-   "true_mood": "happy"
+   "valence": 0.6047,
+   "arousal": 0.4238,
+   "true_valence": 0.4488,
+   "true_arousal": 0.335
   },
   {
-   "title": "Glamour Boys",
-   "artist": "Living Colour",
+   "title": "Baby a Go-Go",
+   "artist": "Barbara McNair",
    "split": "test",
-   "probs": {
-    "happy": 0.6238,
-    "sad": 0.0317,
-    "angry": 0.1607,
-    "relaxed": 0.1838
-   },
-   "true_mood": "relaxed"
+   "valence": 0.6095,
+   "arousal": 0.2228,
+   "true_valence": -0.505,
+   "true_arousal": -0.0712
   },
   {
-   "title": "I Won't Let Go",
-   "artist": "Rascal Flatts",
+   "title": "Almost Like Being in Love",
+   "artist": "101 Strings",
    "split": "test",
-   "probs": {
-    "happy": 0.0112,
-    "sad": 0.0153,
-    "angry": 0.9608,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.512,
+   "arousal": 0.0691,
+   "true_valence": 0.37,
+   "true_arousal": -0.49
   },
   {
-   "title": "Vietnam",
-   "artist": "Crystal Castles",
+   "title": "Angels Among Us",
+   "artist": "Alabama",
    "split": "test",
-   "probs": {
-    "happy": 0.3577,
-    "sad": 0.0856,
-    "angry": 0.0712,
-    "relaxed": 0.4856
-   },
-   "true_mood": "happy"
+   "valence": 0.3507,
+   "arousal": -0.4462,
+   "true_valence": 0.4225,
+   "true_arousal": -0.435
   },
   {
-   "title": "Colony Of Birchmen",
-   "artist": "Mastodon",
+   "title": "Modulation",
+   "artist": "Ani DiFranco",
    "split": "test",
-   "probs": {
-    "happy": 0.0051,
-    "sad": 0.9635,
-    "angry": 0.0264,
-    "relaxed": 0.0051
-   },
-   "true_mood": "sad"
+   "valence": -0.3922,
+   "arousal": -0.0359,
+   "true_valence": -0.2312,
+   "true_arousal": -0.1488
   },
   {
-   "title": "Ever Fallen In Love?",
-   "artist": "Buzzcocks",
+   "title": "Our Love Is Here to Stay",
+   "artist": "Rod Stewart",
    "split": "test",
-   "probs": {
-    "happy": 0.9759,
-    "sad": 0.0051,
-    "angry": 0.0113,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": 0.3882,
+   "arousal": -0.1991,
+   "true_valence": 0.6475,
+   "true_arousal": 0.0775
   },
   {
-   "title": "Heaven",
-   "artist": "The Psychedelic Furs",
+   "title": "Gentle on My Mind",
+   "artist": "Aretha Franklin",
    "split": "test",
-   "probs": {
-    "happy": 0.8882,
-    "sad": 0.007,
-    "angry": 0.0131,
-    "relaxed": 0.0917
-   },
-   "true_mood": "relaxed"
+   "valence": 0.3739,
+   "arousal": -0.1426,
+   "true_valence": 0.5712,
+   "true_arousal": 0.0325
   },
   {
-   "title": "The Glory Of Love",
-   "artist": "The Five Keys",
+   "title": "Im Happy Just to Dance With You",
+   "artist": "The Beatles",
    "split": "test",
-   "probs": {
-    "happy": 0.9408,
-    "sad": 0.005,
-    "angry": 0.0124,
-    "relaxed": 0.0418
-   },
-   "true_mood": "happy"
+   "valence": 0.6003,
+   "arousal": 0.1842,
+   "true_valence": 0.6125,
+   "true_arousal": 0.125
   },
   {
-   "title": "Into The Fire",
-   "artist": "Sarah McLachlan",
+   "title": "(I Got Spurs That) Jingle, Jangle, Jingle",
+   "artist": "Kay Kyser",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0095,
-    "angry": 0.965,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.5951,
+   "arousal": 0.1908,
+   "true_valence": 0.6575,
+   "true_arousal": 0.1725
   },
   {
-   "title": "Lemonade",
-   "artist": "Braids",
+   "title": "Rio [US Edit]",
+   "artist": "Duran Duran",
    "split": "test",
-   "probs": {
-    "happy": 0.9671,
-    "sad": 0.0076,
-    "angry": 0.0112,
-    "relaxed": 0.0141
-   },
-   "true_mood": "sad"
+   "valence": 0.6422,
+   "arousal": 0.255,
+   "true_valence": 0.6025,
+   "true_arousal": 0.3338
   },
   {
-   "title": "Alice Practice",
-   "artist": "Crystal Castles",
+   "title": "Reaching For the Moon",
+   "artist": "Lizz Wright",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.2232,
+   "arousal": -0.4,
+   "true_valence": 0.46,
+   "true_arousal": -0.2975
   },
   {
-   "title": "Contra Viento Y Marea",
-   "artist": "Intocable",
+   "title": "Victory",
+   "artist": "Megadeth",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.4043,
+   "arousal": 0.1857,
+   "true_valence": -0.375,
+   "true_arousal": 0.0875
   },
   {
-   "title": "Blue Christmas",
-   "artist": "Ann & Nancy Wilson",
+   "title": "Sickness",
+   "artist": "Obituary",
    "split": "test",
-   "probs": {
-    "happy": 0.0096,
-    "sad": 0.0052,
-    "angry": 0.0076,
-    "relaxed": 0.9776
-   },
-   "true_mood": "relaxed"
+   "valence": -0.4475,
+   "arousal": 0.1781,
+   "true_valence": -0.325,
+   "true_arousal": 0.1275
   },
   {
-   "title": "The World Is A Ghetto",
-   "artist": "Phil Perry",
+   "title": "5D (Fifth Dimension)",
+   "artist": "The Byrds",
    "split": "test",
-   "probs": {
-    "happy": 0.0077,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.9795
-   },
-   "true_mood": "relaxed"
+   "valence": -0.0682,
+   "arousal": -0.1217,
+   "true_valence": 0.335,
+   "true_arousal": -0.37
   },
   {
-   "title": "Said I Loved You...But I Lied",
-   "artist": "Michael Bolton",
+   "title": "Gloomy Sunday",
+   "artist": "Billie Holliday",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": -0.1579,
+   "arousal": -0.3638,
+   "true_valence": -0.575,
+   "true_arousal": -0.65
   },
   {
-   "title": "Jailhouse Rock",
-   "artist": "Elvis Presley",
+   "title": "Highway Highway",
+   "artist": "Joe Cocker",
    "split": "test",
-   "probs": {
-    "happy": 0.0132,
-    "sad": 0.6883,
-    "angry": 0.2811,
-    "relaxed": 0.0174
-   },
-   "true_mood": "sad"
+   "valence": 0.0083,
+   "arousal": -0.3474,
+   "true_valence": -0.6538,
+   "true_arousal": -0.2675
   },
   {
-   "title": "Teacher Teacher",
-   "artist": "Rockpile",
+   "title": "I Won't Forget You",
+   "artist": "Jim Reeves",
    "split": "test",
-   "probs": {
-    "happy": 0.9545,
-    "sad": 0.0075,
-    "angry": 0.0111,
-    "relaxed": 0.0269
-   },
-   "true_mood": "relaxed"
+   "valence": -0.0619,
+   "arousal": -0.4432,
+   "true_valence": -0.4375,
+   "true_arousal": -0.3775
   },
   {
-   "title": "Murder Weapon",
-   "artist": "Tricky",
+   "title": "Don't Cha",
+   "artist": "Busta Rhymes",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0153,
-    "angry": 0.9594,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": 0.5292,
+   "arousal": 0.5244,
+   "true_valence": 0.605,
+   "true_arousal": 0.275
   },
   {
-   "title": "Lonely",
-   "artist": "Atreyu",
+   "title": "Nobody Does It Better",
+   "artist": "Carly Simon",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.98,
-    "angry": 0.0097,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.1715,
+   "arousal": -0.3572,
+   "true_valence": 0.42,
+   "true_arousal": -0.405
   },
   {
-   "title": "Troddin The Valley",
-   "artist": "Jah Cure",
+   "title": "The Drugs Don't Work",
+   "artist": "The Verve",
    "split": "test",
-   "probs": {
-    "happy": 0.0141,
-    "sad": 0.0112,
-    "angry": 0.9621,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.36,
+   "arousal": -0.1396,
+   "true_valence": -0.445,
+   "true_arousal": -0.3137
   },
   {
-   "title": "Tardes Negras",
-   "artist": "Tiziano Ferro",
+   "title": "Zion in a Vision",
+   "artist": "Garnett Silk",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.501,
+   "arousal": 0.017,
+   "true_valence": 0.3812,
+   "true_arousal": -0.2288
   },
   {
-   "title": "Nude",
-   "artist": "Radiohead",
+   "title": "All I Want for Christmas Is a Real Good Tan",
+   "artist": "Kenny Chesney",
    "split": "test",
-   "probs": {
-    "happy": 0.0076,
-    "sad": 0.9674,
-    "angry": 0.0155,
-    "relaxed": 0.0095
-   },
-   "true_mood": "sad"
+   "valence": 0.5242,
+   "arousal": -0.0364,
+   "true_valence": 0.5712,
+   "true_arousal": -0.355
   },
   {
-   "title": "Needle In The Hay",
-   "artist": "Elliott Smith",
+   "title": "Spirit in Black",
+   "artist": "Slayer",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.9795,
-    "angry": 0.0077,
-    "relaxed": 0.0077
-   },
-   "true_mood": "sad"
+   "valence": -0.3486,
+   "arousal": 0.027,
+   "true_valence": -0.39,
+   "true_arousal": 0.0975
   },
   {
-   "title": "Army Bound",
-   "artist": "Ted Leo & The Pharmacists",
+   "title": "Voice of the Voiceless",
+   "artist": "Rage Against the Machine",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": -0.3739,
+   "arousal": 0.1479,
+   "true_valence": -0.2775,
+   "true_arousal": 0.16
   },
   {
-   "title": "Hospital Beds",
-   "artist": "Cold War Kids",
+   "title": "Beautiful Horses",
+   "artist": "The Blood Brothers",
    "split": "test",
-   "probs": {
-    "happy": 0.0127,
-    "sad": 0.0112,
-    "angry": 0.9634,
-    "relaxed": 0.0127
-   },
-   "true_mood": "angry"
+   "valence": -0.4366,
+   "arousal": 0.2306,
+   "true_valence": -0.555,
+   "true_arousal": 0.16
   },
   {
-   "title": "All By Myself",
-   "artist": "Fats Domino",
+   "title": "Ten Commandments of Love",
+   "artist": "Bob Marley",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
-  },
-  {
-   "title": "Sick Of You",
-   "artist": "Cake",
-   "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.9795,
-    "angry": 0.0077,
-    "relaxed": 0.0077
-   },
-   "true_mood": "sad"
+   "valence": 0.446,
+   "arousal": -0.2036,
+   "true_valence": 0.4725,
+   "true_arousal": -0.1575
   },
   {
    "title": "Good Luck",
    "artist": "Basement Jaxx",
    "split": "test",
-   "probs": {
-    "happy": 0.0096,
-    "sad": 0.0076,
-    "angry": 0.0076,
-    "relaxed": 0.9751
-   },
-   "true_mood": "relaxed"
+   "valence": -0.1768,
+   "arousal": 0.0082,
+   "true_valence": 0.3812,
+   "true_arousal": 0.3688
   },
   {
-   "title": "From Paris To Berlin",
-   "artist": "Infernal",
+   "title": "Everybody Loves the Sunshine",
+   "artist": "Incognito",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": 0.5979,
+   "arousal": 0.0453,
+   "true_valence": 0.6425,
+   "true_arousal": 0.125
   },
   {
-   "title": "All I Want For Christmas",
-   "artist": "LeAnn Rimes",
+   "title": "You Can't Hurry Love",
+   "artist": "Dixie Chicks",
    "split": "test",
-   "probs": {
-    "happy": 0.0355,
-    "sad": 0.005,
-    "angry": 0.0094,
-    "relaxed": 0.9501
-   },
-   "true_mood": "relaxed"
+   "valence": 0.0245,
+   "arousal": -0.1574,
+   "true_valence": 0.6125,
+   "true_arousal": 0.405
   },
   {
-   "title": "Youth Knows No Pain",
-   "artist": "Lykke Li",
+   "title": "Eat You Alive",
+   "artist": "Limp Bizkit",
    "split": "test",
-   "probs": {
-    "happy": 0.0048,
-    "sad": 0.9018,
-    "angry": 0.0845,
-    "relaxed": 0.009
-   },
-   "true_mood": "angry"
+   "valence": -0.0101,
+   "arousal": 0.2786,
+   "true_valence": -0.4725,
+   "true_arousal": 0.035
   },
   {
-   "title": "Same Ole Love",
-   "artist": "Anita Baker",
+   "title": "Good Hearted Woman",
+   "artist": "Deana Carter",
    "split": "test",
-   "probs": {
-    "happy": 0.9776,
-    "sad": 0.0052,
-    "angry": 0.0096,
-    "relaxed": 0.0076
-   },
-   "true_mood": "happy"
+   "valence": 0.5264,
+   "arousal": -0.0905,
+   "true_valence": -0.1825,
+   "true_arousal": -0.3175
   },
   {
-   "title": "Incinerate",
-   "artist": "Sonic Youth",
+   "title": "Save a Bread",
+   "artist": "The Dominoes",
    "split": "test",
-   "probs": {
-    "happy": 0.0111,
-    "sad": 0.0177,
-    "angry": 0.9586,
-    "relaxed": 0.0126
-   },
-   "true_mood": "sad"
+   "valence": 0.319,
+   "arousal": -0.3549,
+   "true_valence": 0.4725,
+   "true_arousal": -0.2275
   },
   {
-   "title": "Brother Jukebox",
-   "artist": "Mark Chesnutt",
+   "title": "This Is Not an Exit",
+   "artist": "Anthrax",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.0052,
-    "angry": 0.0077,
-    "relaxed": 0.982
-   },
-   "true_mood": "relaxed"
+   "valence": -0.4381,
+   "arousal": 0.0346,
+   "true_valence": -0.39,
+   "true_arousal": 0.0875
   },
   {
-   "title": "Al Otro Lado Del Sol",
-   "artist": "Los Temerarios",
+   "title": "I've Got a Rock 'N' Roll Heart",
+   "artist": "Eric Clapton",
    "split": "test",
-   "probs": {
-    "happy": 0.0052,
-    "sad": 0.982,
-    "angry": 0.0077,
-    "relaxed": 0.0052
-   },
-   "true_mood": "sad"
+   "valence": 0.624,
+   "arousal": 0.2319,
+   "true_valence": 0.6125,
+   "true_arousal": 0.125
+  },
+  {
+   "title": "Shot Down",
+   "artist": "Crumbsuckers",
+   "split": "test",
+   "valence": -0.3812,
+   "arousal": 0.1499,
+   "true_valence": -0.4475,
+   "true_arousal": 0.0975
+  },
+  {
+   "title": "Solitude",
+   "artist": "Tonny Bennett",
+   "split": "test",
+   "valence": -0.4563,
+   "arousal": -0.2765,
+   "true_valence": -0.625,
+   "true_arousal": -0.725
+  },
+  {
+   "title": "You Never Miss Your Water",
+   "artist": "Lightnin' Hopkins",
+   "split": "test",
+   "valence": 0.2924,
+   "arousal": -0.1179,
+   "true_valence": -0.4875,
+   "true_arousal": -0.1125
+  },
+  {
+   "title": "Night Fever",
+   "artist": "Bee Gees",
+   "split": "test",
+   "valence": 0.5724,
+   "arousal": 0.1372,
+   "true_valence": 0.5775,
+   "true_arousal": 0.2938
+  },
+  {
+   "title": "Set You Free",
+   "artist": "Allison Moorer",
+   "split": "test",
+   "valence": -0.1222,
+   "arousal": -0.2027,
+   "true_valence": -0.5475,
+   "true_arousal": -0.0525
+  },
+  {
+   "title": "In Germany Before the War",
+   "artist": "Marianne Faithfull",
+   "split": "test",
+   "valence": -0.1248,
+   "arousal": -0.3407,
+   "true_valence": -0.4275,
+   "true_arousal": -0.35
+  },
+  {
+   "title": "L-O-V-E",
+   "artist": "Nat King Cole",
+   "split": "test",
+   "valence": 0.5687,
+   "arousal": -0.1254,
+   "true_valence": 0.555,
+   "true_arousal": 0.255
+  },
+  {
+   "title": "Don't Let Me Lose This Dream",
+   "artist": "Aretha Franklin",
+   "split": "test",
+   "valence": -0.42,
+   "arousal": -0.1049,
+   "true_valence": 0.1375,
+   "true_arousal": -0.1975
+  },
+  {
+   "title": "Heaven Help",
+   "artist": "Lenny Kravitz",
+   "split": "test",
+   "valence": 0.2795,
+   "arousal": -0.0234,
+   "true_valence": 0.555,
+   "true_arousal": -0.095
+  },
+  {
+   "title": "Cursed Realms (Of the Winterdemons)",
+   "artist": "Sunn O)))",
+   "split": "test",
+   "valence": -0.2612,
+   "arousal": -0.067,
+   "true_valence": -0.3,
+   "true_arousal": -0.2875
+  },
+  {
+   "title": "Were You There?",
+   "artist": "Sam Cooke",
+   "split": "test",
+   "valence": 0.1805,
+   "arousal": -0.1384,
+   "true_valence": 0.29,
+   "true_arousal": -0.2988
+  },
+  {
+   "title": "Miracle",
+   "artist": "Céline Dion",
+   "split": "test",
+   "valence": 0.1115,
+   "arousal": -0.1866,
+   "true_valence": 0.4925,
+   "true_arousal": -0.4675
+  },
+  {
+   "title": "If I Could Only Fly",
+   "artist": "Merle Haggard",
+   "split": "test",
+   "valence": -0.3463,
+   "arousal": -0.4514,
+   "true_valence": -0.3262,
+   "true_arousal": -0.2838
+  },
+  {
+   "title": "GM2 1",
+   "artist": "Gorilla Biscuits",
+   "split": "test",
+   "valence": -0.2985,
+   "arousal": 0.0506,
+   "true_valence": -0.4775,
+   "true_arousal": 0.0975
+  },
+  {
+   "title": "Last of the Mohicans",
+   "artist": "Black Child",
+   "split": "test",
+   "valence": -0.2412,
+   "arousal": 0.0965,
+   "true_valence": -0.3,
+   "true_arousal": 0.1575
+  },
+  {
+   "title": "Yellow Submarine",
+   "artist": "Beatles",
+   "split": "test",
+   "valence": 0.1509,
+   "arousal": -0.0978,
+   "true_valence": 0.5,
+   "true_arousal": 0.5
+  },
+  {
+   "title": "Lost",
+   "artist": "Drown",
+   "split": "test",
+   "valence": -0.4975,
+   "arousal": -0.3547,
+   "true_valence": -0.215,
+   "true_arousal": 0.29
+  },
+  {
+   "title": "Dreamland",
+   "artist": "Bob Marley",
+   "split": "test",
+   "valence": 0.5703,
+   "arousal": -0.0758,
+   "true_valence": 0.375,
+   "true_arousal": -0.4275
+  },
+  {
+   "title": "Call My Name",
+   "artist": "Van Morrison",
+   "split": "test",
+   "valence": 0.0048,
+   "arousal": -0.3355,
+   "true_valence": 0.3525,
+   "true_arousal": 0.2938
+  },
+  {
+   "title": "Skid Row",
+   "artist": "Lonnie Brooks",
+   "split": "test",
+   "valence": -0.0282,
+   "arousal": 0.0469,
+   "true_valence": -0.5012,
+   "true_arousal": -0.0825
+  },
+  {
+   "title": "Shoe Box",
+   "artist": "Barenaked Ladies",
+   "split": "test",
+   "valence": -0.3765,
+   "arousal": -0.2604,
+   "true_valence": 0.6425,
+   "true_arousal": 0.1625
+  },
+  {
+   "title": "(There's No Place Like) Home for the Holidays",
+   "artist": "Carpenters",
+   "split": "test",
+   "valence": 0.4334,
+   "arousal": -0.2404,
+   "true_valence": 0.4725,
+   "true_arousal": -0.49
+  },
+  {
+   "title": "Mr. Blue Sky",
+   "artist": "Electric Light Orchestra",
+   "split": "test",
+   "valence": 0.4571,
+   "arousal": -0.0373,
+   "true_valence": 0.43,
+   "true_arousal": 0.275
+  },
+  {
+   "title": "Sycophantic",
+   "artist": "Fleshgrind",
+   "split": "test",
+   "valence": -0.3955,
+   "arousal": 0.1362,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Midnight Creeper",
+   "artist": "Elton John",
+   "split": "test",
+   "valence": 0.0114,
+   "arousal": 0.0171,
+   "true_valence": 0.555,
+   "true_arousal": 0.08
+  },
+  {
+   "title": "Roll 'Em Pete",
+   "artist": "Jimmy Reed",
+   "split": "test",
+   "valence": 0.3076,
+   "arousal": -0.0745,
+   "true_valence": -0.5,
+   "true_arousal": -0.1125
+  },
+  {
+   "title": "Don't Explain",
+   "artist": "Ella Fitzgerald",
+   "split": "test",
+   "valence": 0.0774,
+   "arousal": -0.35,
+   "true_valence": -0.45,
+   "true_arousal": -0.3988
+  },
+  {
+   "title": "Fading Dimensions",
+   "artist": "Darkane",
+   "split": "test",
+   "valence": -0.3555,
+   "arousal": 0.117,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "A Natural Woman",
+   "artist": "Mariah Carey",
+   "split": "test",
+   "valence": 0.5414,
+   "arousal": 0.0441,
+   "true_valence": 0.6262,
+   "true_arousal": 0.1462
+  },
+  {
+   "title": "A Way",
+   "artist": "Biohazard",
+   "split": "test",
+   "valence": -0.2341,
+   "arousal": -0.2282,
+   "true_valence": -0.39,
+   "true_arousal": 0.1425
+  },
+  {
+   "title": "Tryin' Times",
+   "artist": "Roberta Flack",
+   "split": "test",
+   "valence": -0.283,
+   "arousal": 0.0297,
+   "true_valence": -0.5825,
+   "true_arousal": -0.2375
+  },
+  {
+   "title": "Worldly Whys",
+   "artist": "Defecation",
+   "split": "test",
+   "valence": -0.1786,
+   "arousal": -0.0238,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "I Got Stung",
+   "artist": "Elvis",
+   "split": "test",
+   "valence": 0.122,
+   "arousal": 0.1244,
+   "true_valence": 0.625,
+   "true_arousal": 0.2075
+  },
+  {
+   "title": "Trav'lin' All Alone",
+   "artist": "Billie Holiday",
+   "split": "test",
+   "valence": -0.4035,
+   "arousal": -0.3225,
+   "true_valence": -0.26,
+   "true_arousal": -0.2275
+  },
+  {
+   "title": "I Love This Bar",
+   "artist": "Toby Keith",
+   "split": "test",
+   "valence": 0.3828,
+   "arousal": 0.2471,
+   "true_valence": 0.5588,
+   "true_arousal": 0.145
+  },
+  {
+   "title": "Wormwood",
+   "artist": "Easy Rider",
+   "split": "test",
+   "valence": -0.2522,
+   "arousal": -0.1426,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "The Violet and a Rose",
+   "artist": "Little Jimmy Dickens",
+   "split": "test",
+   "valence": 0.1606,
+   "arousal": -0.2372,
+   "true_valence": -0.505,
+   "true_arousal": -0.2362
+  },
+  {
+   "title": "You'll Think of Me",
+   "artist": "Keith Urban",
+   "split": "test",
+   "valence": -0.1776,
+   "arousal": -0.1898,
+   "true_valence": -0.315,
+   "true_arousal": -0.25
+  },
+  {
+   "title": "Wood Cabin",
+   "artist": "Saint Etienne",
+   "split": "test",
+   "valence": -0.3224,
+   "arousal": -0.1813,
+   "true_valence": 0.26,
+   "true_arousal": -0.2025
+  },
+  {
+   "title": "The Last Mile of the Way",
+   "artist": "Sam Cooke",
+   "split": "test",
+   "valence": 0.3372,
+   "arousal": -0.2452,
+   "true_valence": 0.29,
+   "true_arousal": -0.1362
+  },
+  {
+   "title": "Ready to Die",
+   "artist": "The Notorious B.I.G.",
+   "split": "test",
+   "valence": -0.4038,
+   "arousal": 0.2021,
+   "true_valence": -0.39,
+   "true_arousal": 0.1775
+  },
+  {
+   "title": "Dirt",
+   "artist": "Revolting Cocks",
+   "split": "test",
+   "valence": -0.3828,
+   "arousal": 0.1411,
+   "true_valence": -0.2025,
+   "true_arousal": 0.16
+  },
+  {
+   "title": "O Come All Ye Faithful",
+   "artist": "Elvis Presley",
+   "split": "test",
+   "valence": 0.4042,
+   "arousal": -0.2364,
+   "true_valence": 0.42,
+   "true_arousal": -0.5475
+  },
+  {
+   "title": "Dreams",
+   "artist": "The Corrs",
+   "split": "test",
+   "valence": -0.2937,
+   "arousal": -0.1312,
+   "true_valence": 0.4725,
+   "true_arousal": -0.2625
+  },
+  {
+   "title": "The Briar and the Rose",
+   "artist": "Tom Waits",
+   "split": "test",
+   "valence": 0.1364,
+   "arousal": -0.288,
+   "true_valence": -0.5825,
+   "true_arousal": -0.1575
+  },
+  {
+   "title": "Stubborn Kind of Fellow",
+   "artist": "Marvin Gaye",
+   "split": "test",
+   "valence": 0.5295,
+   "arousal": 0.2988,
+   "true_valence": 0.6812,
+   "true_arousal": 0.2262
+  },
+  {
+   "title": "Shiny Things",
+   "artist": "Tom Waits",
+   "split": "test",
+   "valence": 0.3552,
+   "arousal": -0.2202,
+   "true_valence": -0.0125,
+   "true_arousal": -0.325
+  },
+  {
+   "title": "London You're a Lady",
+   "artist": "The Pogues",
+   "split": "test",
+   "valence": -0.3353,
+   "arousal": 0.0179,
+   "true_valence": 0.5,
+   "true_arousal": -0.2275
+  },
+  {
+   "title": "Help Me Understand",
+   "artist": "Trace Adkins",
+   "split": "test",
+   "valence": -0.2431,
+   "arousal": -0.3553,
+   "true_valence": -0.4375,
+   "true_arousal": -0.3775
+  },
+  {
+   "title": "Jack Rabbit",
+   "artist": "Elton John",
+   "split": "test",
+   "valence": 0.0795,
+   "arousal": -0.1529,
+   "true_valence": 0.6112,
+   "true_arousal": 0.1575
+  },
+  {
+   "title": "I Ain't With Being Broke",
+   "artist": "Geto Boys",
+   "split": "test",
+   "valence": -0.3652,
+   "arousal": 0.1879,
+   "true_valence": -0.3212,
+   "true_arousal": 0.0838
+  },
+  {
+   "title": "Inflikted",
+   "artist": "Cavalera Conspiracy",
+   "split": "test",
+   "valence": -0.3644,
+   "arousal": 0.1031,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Cause of Death",
+   "artist": "Obituary",
+   "split": "test",
+   "valence": -0.4021,
+   "arousal": 0.0792,
+   "true_valence": -0.3262,
+   "true_arousal": 0.12
+  },
+  {
+   "title": "Something You Got",
+   "artist": "Harry Connick, Jr.",
+   "split": "test",
+   "valence": 0.4623,
+   "arousal": 0.061,
+   "true_valence": 0.625,
+   "true_arousal": 0.2225
+  },
+  {
+   "title": "More Trife Life",
+   "artist": "Mobb Deep",
+   "split": "test",
+   "valence": -0.4943,
+   "arousal": 0.0706,
+   "true_valence": -0.3438,
+   "true_arousal": 0.0612
+  },
+  {
+   "title": "Writer in the Sun",
+   "artist": "Donovan",
+   "split": "test",
+   "valence": -0.2594,
+   "arousal": -0.2892,
+   "true_valence": 0.5375,
+   "true_arousal": -0.435
+  },
+  {
+   "title": "They All Laughed",
+   "artist": "Louis Armstrong",
+   "split": "test",
+   "valence": 0.24,
+   "arousal": -0.0697,
+   "true_valence": 0.655,
+   "true_arousal": 0.2062
+  },
+  {
+   "title": "Dread and the Fugitive Mind",
+   "artist": "Megadeth",
+   "split": "test",
+   "valence": -0.3831,
+   "arousal": 0.0469,
+   "true_valence": -0.2888,
+   "true_arousal": 0.0388
+  },
+  {
+   "title": "Pink Pedal Pushers",
+   "artist": "Carl Perkins",
+   "split": "test",
+   "valence": 0.4208,
+   "arousal": 0.291,
+   "true_valence": 0.5938,
+   "true_arousal": 0.2488
+  },
+  {
+   "title": "Ferret & Featherbird",
+   "artist": "Hamada",
+   "split": "test",
+   "valence": 0.0467,
+   "arousal": -0.5038,
+   "true_valence": 0.4475,
+   "true_arousal": -0.16
+  },
+  {
+   "title": "This Love",
+   "artist": "Bryan Ferry",
+   "split": "test",
+   "valence": 0.2843,
+   "arousal": -0.0443,
+   "true_valence": -0.4275,
+   "true_arousal": -0.2175
+  },
+  {
+   "title": "Deeper and Deeper [Shep's Fierce Deeper Dub]",
+   "artist": "Madonna",
+   "split": "test",
+   "valence": 0.466,
+   "arousal": 0.127,
+   "true_valence": 0.41,
+   "true_arousal": 0.3375
+  },
+  {
+   "title": "Psychotron",
+   "artist": "Megadeth",
+   "split": "test",
+   "valence": -0.3908,
+   "arousal": 0.0448,
+   "true_valence": -0.2888,
+   "true_arousal": 0.0388
+  },
+  {
+   "title": "Blackbird",
+   "artist": "Paul McCartney",
+   "split": "test",
+   "valence": 0.1748,
+   "arousal": -0.2601,
+   "true_valence": 0.2975,
+   "true_arousal": -0.24
+  },
+  {
+   "title": "The Moon Was Yellow and the Night Was Young",
+   "artist": "Fred E. Ahlert",
+   "split": "test",
+   "valence": 0.6047,
+   "arousal": -0.1384,
+   "true_valence": 0.3675,
+   "true_arousal": -0.49
+  },
+  {
+   "title": "Silver Bells",
+   "artist": "Vince Gill",
+   "split": "test",
+   "valence": 0.4871,
+   "arousal": -0.2314,
+   "true_valence": 0.3875,
+   "true_arousal": -0.28
+  },
+  {
+   "title": "Time Folding Machine",
+   "artist": "Defecation",
+   "split": "test",
+   "valence": -0.2751,
+   "arousal": 0.0636,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Could've Been You",
+   "artist": "Cher",
+   "split": "test",
+   "valence": 0.0427,
+   "arousal": -0.1035,
+   "true_valence": -0.5825,
+   "true_arousal": -0.1575
+  },
+  {
+   "title": "What'd I Say, Pts. 1 & 2",
+   "artist": "Ray Charles",
+   "split": "test",
+   "valence": 0.5435,
+   "arousal": 0.3844,
+   "true_valence": 0.6125,
+   "true_arousal": 0.275
+  },
+  {
+   "title": "How Do You Do?",
+   "artist": "The BooMTown Rats",
+   "split": "test",
+   "valence": 0.5153,
+   "arousal": 0.0821,
+   "true_valence": -0.3038,
+   "true_arousal": -0.1412
+  },
+  {
+   "title": "Whoopie-Ti-Yi-Yo, Get Along Little Dogies",
+   "artist": "Woody Guthrie",
+   "split": "test",
+   "valence": 0.4242,
+   "arousal": -0.0701,
+   "true_valence": 0.375,
+   "true_arousal": -0.2275
+  },
+  {
+   "title": "I Can't Stop",
+   "artist": "Al Green",
+   "split": "test",
+   "valence": 0.3307,
+   "arousal": 0.1395,
+   "true_valence": 0.5712,
+   "true_arousal": 0.1275
+  },
+  {
+   "title": "I'm Real",
+   "artist": "Jennifer Lopez",
+   "split": "test",
+   "valence": 0.3639,
+   "arousal": -0.092,
+   "true_valence": 0.495,
+   "true_arousal": 0.095
+  },
+  {
+   "title": "Stormy Monday Blues",
+   "artist": "Billy Eckstine",
+   "split": "test",
+   "valence": 0.2785,
+   "arousal": -0.1157,
+   "true_valence": -0.4625,
+   "true_arousal": -0.42
+  },
+  {
+   "title": "Life's Railway to Heaven",
+   "artist": "Patsy Cline",
+   "split": "test",
+   "valence": 0.3369,
+   "arousal": -0.1226,
+   "true_valence": 0.3175,
+   "true_arousal": -0.38
+  },
+  {
+   "title": "Discharged Reason",
+   "artist": "Nuclear Assault",
+   "split": "test",
+   "valence": -0.3901,
+   "arousal": 0.0479,
+   "true_valence": -0.4575,
+   "true_arousal": 0.09
+  },
+  {
+   "title": "The Kill in Me",
+   "artist": "P.O.S",
+   "split": "test",
+   "valence": -0.3945,
+   "arousal": -0.0495,
+   "true_valence": -0.3825,
+   "true_arousal": 0.1737
+  },
+  {
+   "title": "When Two Worlds Collide",
+   "artist": "Roger Miller",
+   "split": "test",
+   "valence": -0.0721,
+   "arousal": -0.365,
+   "true_valence": -0.4375,
+   "true_arousal": -0.525
+  },
+  {
+   "title": "Prince of Darkness",
+   "artist": "Megadeth",
+   "split": "test",
+   "valence": -0.3975,
+   "arousal": 0.2018,
+   "true_valence": -0.375,
+   "true_arousal": 0.0875
+  },
+  {
+   "title": "Sick and Tired",
+   "artist": "Black Sabbath",
+   "split": "test",
+   "valence": -0.5057,
+   "arousal": 0.0812,
+   "true_valence": -0.4375,
+   "true_arousal": -0.42
+  },
+  {
+   "title": "Dead Bodies Everywhere",
+   "artist": "Korn",
+   "split": "test",
+   "valence": -0.4725,
+   "arousal": 0.1318,
+   "true_valence": -0.85,
+   "true_arousal": 0.85
+  },
+  {
+   "title": "Brazilian Rhyme",
+   "artist": "Earth, Wind & Fire",
+   "split": "test",
+   "valence": 0.4647,
+   "arousal": -0.101,
+   "true_valence": 0.53,
+   "true_arousal": 0.0625
+  },
+  {
+   "title": "Angie",
+   "artist": "Rolling Stones",
+   "split": "test",
+   "valence": -0.318,
+   "arousal": -0.2142,
+   "true_valence": -0.375,
+   "true_arousal": -0.425
+  },
+  {
+   "title": "Blood of Heroes",
+   "artist": "Megadeth",
+   "split": "test",
+   "valence": -0.3024,
+   "arousal": 0.1544,
+   "true_valence": -0.375,
+   "true_arousal": 0.0875
+  },
+  {
+   "title": "Young at Heart",
+   "artist": "Frank Sinatra",
+   "split": "test",
+   "valence": 0.5166,
+   "arousal": -0.1481,
+   "true_valence": 0.4625,
+   "true_arousal": -0.22
+  },
+  {
+   "title": "Rhythm Is Gonna Get You",
+   "artist": "Gloria Estefan",
+   "split": "test",
+   "valence": 0.57,
+   "arousal": 0.3312,
+   "true_valence": 0.6,
+   "true_arousal": 0.19
+  },
+  {
+   "title": "No Rollin' Blues",
+   "artist": "John Lee Hooker",
+   "split": "test",
+   "valence": 0.0477,
+   "arousal": -0.1481,
+   "true_valence": -0.315,
+   "true_arousal": -0.42
+  },
+  {
+   "title": "My Kind of Girl",
+   "artist": "Count Basie Orchestra",
+   "split": "test",
+   "valence": 0.5154,
+   "arousal": -0.0898,
+   "true_valence": 0.5,
+   "true_arousal": -0.215
+  },
+  {
+   "title": "Together (Wherever We Go)",
+   "artist": "Sandra Church",
+   "split": "test",
+   "valence": 0.1873,
+   "arousal": -0.2401,
+   "true_valence": 0.4125,
+   "true_arousal": -0.0575
+  },
+  {
+   "title": "Sabbath Bloody Sabbath",
+   "artist": "Black Sabbath",
+   "split": "test",
+   "valence": -0.433,
+   "arousal": -0.0039,
+   "true_valence": -0.5475,
+   "true_arousal": 0.3
+  },
+  {
+   "title": "Rock the House [Edit]",
+   "artist": "Del the Funky Homosapien",
+   "split": "test",
+   "valence": 0.3104,
+   "arousal": 0.2091,
+   "true_valence": 0.385,
+   "true_arousal": -0.11
+  },
+  {
+   "title": "Impure Perfection",
+   "artist": "Darkane",
+   "split": "test",
+   "valence": -0.3689,
+   "arousal": 0.1099,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "One Love",
+   "artist": "The Prodigy",
+   "split": "test",
+   "valence": 0.2825,
+   "arousal": -0.303,
+   "true_valence": 0.4088,
+   "true_arousal": 0.3375
+  },
+  {
+   "title": "Come to Rest",
+   "artist": "Blindside",
+   "split": "test",
+   "valence": -0.2434,
+   "arousal": -0.0044,
+   "true_valence": -0.3862,
+   "true_arousal": 0.07
+  },
+  {
+   "title": "The Truth About Men",
+   "artist": "Tracy Byrd",
+   "split": "test",
+   "valence": -0.1619,
+   "arousal": 0.1398,
+   "true_valence": 0.68,
+   "true_arousal": 0.1362
+  },
+  {
+   "title": "Finger Poppin' Time",
+   "artist": "Hank Ballard & the Midnighters",
+   "split": "test",
+   "valence": 0.5505,
+   "arousal": 0.2399,
+   "true_valence": 0.7375,
+   "true_arousal": 0.405
+  },
+  {
+   "title": "Girl From Ipanema",
+   "artist": "Stan Getz",
+   "split": "test",
+   "valence": 0.4272,
+   "arousal": -0.31,
+   "true_valence": 0.5438,
+   "true_arousal": -0.2925
+  },
+  {
+   "title": "Sometimes",
+   "artist": "Babes in Toyland",
+   "split": "test",
+   "valence": -0.4118,
+   "arousal": -0.0223,
+   "true_valence": -0.3825,
+   "true_arousal": 0.0925
+  },
+  {
+   "title": "Mr. Lucky",
+   "artist": "Revolting Cocks",
+   "split": "test",
+   "valence": -0.316,
+   "arousal": 0.2194,
+   "true_valence": -0.2025,
+   "true_arousal": 0.16
+  },
+  {
+   "title": "Do you wanna dance",
+   "artist": "Beach Boys",
+   "split": "test",
+   "valence": 0.5933,
+   "arousal": 0.3669,
+   "true_valence": 0.725,
+   "true_arousal": 0.725
+  },
+  {
+   "title": "Cut It Dude",
+   "artist": "The Queers",
+   "split": "test",
+   "valence": -0.0457,
+   "arousal": 0.3278,
+   "true_valence": -0.425,
+   "true_arousal": 0.0475
+  },
+  {
+   "title": "Is There Anybody There",
+   "artist": "Scorpions",
+   "split": "test",
+   "valence": 0.3342,
+   "arousal": -0.2878,
+   "true_valence": 0.42,
+   "true_arousal": -0.1575
+  },
+  {
+   "title": "Give Me Back That Wig (Wig Wearing Woman)",
+   "artist": "Lightnin' Hopkins",
+   "split": "test",
+   "valence": 0.2856,
+   "arousal": 0.0906,
+   "true_valence": -0.4875,
+   "true_arousal": -0.1125
+  },
+  {
+   "title": "Dance with my Father",
+   "artist": "Luthor Vandross",
+   "split": "test",
+   "valence": 0.0631,
+   "arousal": -0.2781,
+   "true_valence": -0.725,
+   "true_arousal": -0.5
+  },
+  {
+   "title": "Atlantic City",
+   "artist": "Bruce Springsteen",
+   "split": "test",
+   "valence": -0.1829,
+   "arousal": 0.0696,
+   "true_valence": -0.1462,
+   "true_arousal": -0.2738
+  },
+  {
+   "title": "Turn on the Night",
+   "artist": "Kiss",
+   "split": "test",
+   "valence": 0.5806,
+   "arousal": 0.4168,
+   "true_valence": 0.6425,
+   "true_arousal": 0.0625
+  },
+  {
+   "title": "The Way I Am",
+   "artist": "Merle Haggard",
+   "split": "test",
+   "valence": 0.184,
+   "arousal": -0.1757,
+   "true_valence": 0.3162,
+   "true_arousal": -0.4162
+  },
+  {
+   "title": "Everything Falls Apart",
+   "artist": "Hüsker Dü",
+   "split": "test",
+   "valence": -0.3619,
+   "arousal": -0.0645,
+   "true_valence": -0.3212,
+   "true_arousal": 0.1275
+  },
+  {
+   "title": "The Christmas Waltz",
+   "artist": "Carpenters",
+   "split": "test",
+   "valence": 0.519,
+   "arousal": -0.3334,
+   "true_valence": 0.4238,
+   "true_arousal": -0.4838
+  },
+  {
+   "title": "Let's Ride",
+   "artist": "Ja Rule",
+   "split": "test",
+   "valence": -0.1966,
+   "arousal": 0.229,
+   "true_valence": -0.2775,
+   "true_arousal": 0.1575
+  },
+  {
+   "title": "Rider in the Rain",
+   "artist": "Randy Newman",
+   "split": "test",
+   "valence": -0.1499,
+   "arousal": -0.0721,
+   "true_valence": 0.5625,
+   "true_arousal": -0.3625
+  },
+  {
+   "title": "In the Bleak Mid Winter",
+   "artist": "Sarah McLachlan",
+   "split": "test",
+   "valence": 0.2444,
+   "arousal": -0.3084,
+   "true_valence": 0.46,
+   "true_arousal": -0.4575
+  },
+  {
+   "title": "Life Is So Peculiar",
+   "artist": "Louis Armstrong",
+   "split": "test",
+   "valence": -0.0923,
+   "arousal": -0.2527,
+   "true_valence": 0.3875,
+   "true_arousal": -0.26
+  },
+  {
+   "title": "Our Love",
+   "artist": "Natalie Cole",
+   "split": "test",
+   "valence": 0.5984,
+   "arousal": -0.0035,
+   "true_valence": 0.925,
+   "true_arousal": 0.675
+  },
+  {
+   "title": "Don't Make Me",
+   "artist": "Blake Shelton",
+   "split": "test",
+   "valence": -0.3208,
+   "arousal": -0.2304,
+   "true_valence": -0.4375,
+   "true_arousal": -0.525
+  },
+  {
+   "title": "Door Peep",
+   "artist": "Sinéad O'Connor",
+   "split": "test",
+   "valence": 0.2203,
+   "arousal": -0.1868,
+   "true_valence": 0.4625,
+   "true_arousal": -0.1962
+  },
+  {
+   "title": "Dedicated",
+   "artist": "Das EFX",
+   "split": "test",
+   "valence": -0.3577,
+   "arousal": 0.2007,
+   "true_valence": -0.365,
+   "true_arousal": 0.0875
+  },
+  {
+   "title": "Good Mourning/Black Friday",
+   "artist": "Megadeth",
+   "split": "test",
+   "valence": -0.3666,
+   "arousal": 0.2906,
+   "true_valence": -0.4062,
+   "true_arousal": 0.0675
+  },
+  {
+   "title": "Plastic Man",
+   "artist": "The Kinks",
+   "split": "test",
+   "valence": 0.6143,
+   "arousal": 0.1298,
+   "true_valence": 0.46,
+   "true_arousal": 0.0812
+  },
+  {
+   "title": "Reaganomics",
+   "artist": "D.R.I.",
+   "split": "test",
+   "valence": -0.3997,
+   "arousal": 0.1185,
+   "true_valence": -0.4475,
+   "true_arousal": 0.0975
+  },
+  {
+   "title": "Fear the Grand Inquisitor",
+   "artist": "Pungent Stench",
+   "split": "test",
+   "valence": -0.3734,
+   "arousal": 0.1419,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Danke Schoen",
+   "artist": "Wayne Newton",
+   "split": "test",
+   "valence": 0.3909,
+   "arousal": -0.1129,
+   "true_valence": 0.5,
+   "true_arousal": -0.15
+  },
+  {
+   "title": "Lovely Rita",
+   "artist": "The Beatles",
+   "split": "test",
+   "valence": 0.4639,
+   "arousal": -0.0217,
+   "true_valence": 0.4362,
+   "true_arousal": 0.0238
+  },
+  {
+   "title": "Baby Face",
+   "artist": "Lou Reed",
+   "split": "test",
+   "valence": -0.2337,
+   "arousal": 0.0163,
+   "true_valence": -0.0812,
+   "true_arousal": -0.1575
+  },
+  {
+   "title": "Foolin' Myself",
+   "artist": "Buck Clayton",
+   "split": "test",
+   "valence": -0.1433,
+   "arousal": -0.0083,
+   "true_valence": -0.4375,
+   "true_arousal": -0.42
+  },
+  {
+   "title": "Separation of My Soul",
+   "artist": "Grimfist",
+   "split": "test",
+   "valence": -0.4576,
+   "arousal": 0.182,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "You're Gonna Need My Help",
+   "artist": "Jimmy Reed",
+   "split": "test",
+   "valence": -0.2785,
+   "arousal": -0.0377,
+   "true_valence": -0.5,
+   "true_arousal": -0.1125
+  },
+  {
+   "title": "Dirge Inferno",
+   "artist": "Cradle of Filth",
+   "split": "test",
+   "valence": -0.4446,
+   "arousal": 0.1423,
+   "true_valence": -0.4625,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Stoned Is the Way of the Walk",
+   "artist": "Cypress Hill",
+   "split": "test",
+   "valence": 0.4866,
+   "arousal": 0.3039,
+   "true_valence": -0.2062,
+   "true_arousal": 0.0075
+  },
+  {
+   "title": "Already Dead",
+   "artist": "Beck",
+   "split": "test",
+   "valence": -0.4701,
+   "arousal": -0.0555,
+   "true_valence": -0.55,
+   "true_arousal": -0.45
+  },
+  {
+   "title": "Spit to See the Shine",
+   "artist": "Babes in Toyland",
+   "split": "test",
+   "valence": -0.1482,
+   "arousal": 0.1512,
+   "true_valence": -0.3888,
+   "true_arousal": 0.0925
+  },
+  {
+   "title": "Fly me to the Moon",
+   "artist": "Diana Krall",
+   "split": "test",
+   "valence": 0.5242,
+   "arousal": -0.2178,
+   "true_valence": 0.85,
+   "true_arousal": -0.325
+  },
+  {
+   "title": "Last Night Blues",
+   "artist": "Lightnin' Hopkins",
+   "split": "test",
+   "valence": -0.4224,
+   "arousal": -0.2217,
+   "true_valence": -0.3762,
+   "true_arousal": -0.1362
+  },
+  {
+   "title": "New York, New York",
+   "artist": "Frank Sinatra",
+   "split": "test",
+   "valence": 0.1981,
+   "arousal": 0.0786,
+   "true_valence": 0.55,
+   "true_arousal": 0.425
+  },
+  {
+   "title": "Mortuary Love Affair",
+   "artist": "Pungent Stench",
+   "split": "test",
+   "valence": -0.2307,
+   "arousal": 0.1883,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Bad Dreams",
+   "artist": "Joni Mitchell",
+   "split": "test",
+   "valence": -0.3418,
+   "arousal": 0.0138,
+   "true_valence": -0.315,
+   "true_arousal": -0.2175
+  },
+  {
+   "title": "For Your Entertainment",
+   "artist": "Adam Lambert",
+   "split": "test",
+   "valence": 0.557,
+   "arousal": 0.348,
+   "true_valence": 0.53,
+   "true_arousal": 0.275
+  },
+  {
+   "title": "It Won't Be Long (Till I'll Be Leaving)",
+   "artist": "Roy Acuff",
+   "split": "test",
+   "valence": 0.3796,
+   "arousal": -0.1743,
+   "true_valence": 0.2275,
+   "true_arousal": -0.0912
+  },
+  {
+   "title": "He's Alive",
+   "artist": "Dolly Parton",
+   "split": "test",
+   "valence": -0.2536,
+   "arousal": -0.3351,
+   "true_valence": 0.3175,
+   "true_arousal": -0.2975
+  },
+  {
+   "title": "Without Love (There Is Nothing)",
+   "artist": "Tom Jones",
+   "split": "test",
+   "valence": -0.395,
+   "arousal": -0.1565,
+   "true_valence": -0.2037,
+   "true_arousal": -0.445
+  },
+  {
+   "title": "Amateur Hour",
+   "artist": "Sparks",
+   "split": "test",
+   "valence": 0.6086,
+   "arousal": 0.2681,
+   "true_valence": 0.5863,
+   "true_arousal": 0.1575
+  },
+  {
+   "title": "She's A Woman",
+   "artist": "Daryle Singletary",
+   "split": "test",
+   "valence": -0.0339,
+   "arousal": -0.1141,
+   "true_valence": 0.3675,
+   "true_arousal": -0.5525
+  },
+  {
+   "title": "Build Me Up",
+   "artist": "Al Green",
+   "split": "test",
+   "valence": -0.1373,
+   "arousal": -0.1067,
+   "true_valence": 0.5712,
+   "true_arousal": 0.1275
+  },
+  {
+   "title": "I Feel Good",
+   "artist": "James Brown",
+   "split": "test",
+   "valence": 0.6336,
+   "arousal": 0.3485,
+   "true_valence": 0.825,
+   "true_arousal": 0.675
+  },
+  {
+   "title": "You Should Be Dead",
+   "artist": "50 Cent",
+   "split": "test",
+   "valence": -0.3853,
+   "arousal": 0.1699,
+   "true_valence": -0.8,
+   "true_arousal": 0.875
+  },
+  {
+   "title": "Lookin' for a Love",
+   "artist": "Bobby Womack",
+   "split": "test",
+   "valence": 0.2979,
+   "arousal": 0.1028,
+   "true_valence": 0.33,
+   "true_arousal": 0.2075
+  },
+  {
+   "title": "You Scared",
+   "artist": "DJ Paul",
+   "split": "test",
+   "valence": -0.2723,
+   "arousal": 0.2263,
+   "true_valence": -0.4175,
+   "true_arousal": 0.045
+  },
+  {
+   "title": "Drama",
+   "artist": "Calvin Richardson",
+   "split": "test",
+   "valence": 0.5772,
+   "arousal": 0.1765,
+   "true_valence": -0.5825,
+   "true_arousal": -0.1575
+  },
+  {
+   "title": "The Man That Got Away",
+   "artist": "Ella Fitzgerald",
+   "split": "test",
+   "valence": -0.1044,
+   "arousal": -0.194,
+   "true_valence": -0.4275,
+   "true_arousal": -0.38
+  },
+  {
+   "title": "Brother",
+   "artist": "Alice in Chains",
+   "split": "test",
+   "valence": -0.345,
+   "arousal": -0.4186,
+   "true_valence": -0.3425,
+   "true_arousal": -0.25
+  },
+  {
+   "title": "Outside My Window",
+   "artist": "Stevie Wonder",
+   "split": "test",
+   "valence": 0.5611,
+   "arousal": 0.2079,
+   "true_valence": 0.6962,
+   "true_arousal": 0.1575
+  },
+  {
+   "title": "Gangsta Gangsta",
+   "artist": "N.W.A",
+   "split": "test",
+   "valence": -0.3806,
+   "arousal": 0.2364,
+   "true_valence": -0.2775,
+   "true_arousal": 0.3625
+  },
+  {
+   "title": "Mountain to Sound",
+   "artist": "Spoon",
+   "split": "test",
+   "valence": 0.0743,
+   "arousal": -0.0443,
+   "true_valence": -0.3875,
+   "true_arousal": 0.0875
+  },
+  {
+   "title": "Babe",
+   "artist": "Glassjaw",
+   "split": "test",
+   "valence": -0.4665,
+   "arousal": 0.0182,
+   "true_valence": -0.4425,
+   "true_arousal": 0.07
+  },
+  {
+   "title": "Sunflower",
+   "artist": "Glen Campbell",
+   "split": "test",
+   "valence": 0.6033,
+   "arousal": 0.1668,
+   "true_valence": 0.6188,
+   "true_arousal": 0.2062
+  },
+  {
+   "title": "I Wanna Dance with Somebody",
+   "artist": "Whitney Houston",
+   "split": "test",
+   "valence": -0.1229,
+   "arousal": -0.0245,
+   "true_valence": 0.55,
+   "true_arousal": 0.8
+  },
+  {
+   "title": "What Am I Doing Hangin' 'Round",
+   "artist": "The Monkees",
+   "split": "test",
+   "valence": 0.1565,
+   "arousal": -0.2568,
+   "true_valence": 0.5025,
+   "true_arousal": -0.37
+  },
+  {
+   "title": "Hate Worldwide",
+   "artist": "Slayer",
+   "split": "test",
+   "valence": -0.4162,
+   "arousal": 0.2214,
+   "true_valence": -0.3,
+   "true_arousal": 0.2175
+  },
+  {
+   "title": "Who Wants the World?",
+   "artist": "The Stranglers",
+   "split": "test",
+   "valence": -0.1664,
+   "arousal": -0.0595,
+   "true_valence": -0.3425,
+   "true_arousal": -0.2275
+  },
+  {
+   "title": "Don't Be Light",
+   "artist": "Air",
+   "split": "test",
+   "valence": 0.1148,
+   "arousal": -0.3241,
+   "true_valence": -0.035,
+   "true_arousal": -0.25
+  },
+  {
+   "title": "Shall We Dance?",
+   "artist": "Fred Astaire",
+   "split": "test",
+   "valence": 0.2625,
+   "arousal": 0.0111,
+   "true_valence": 0.6125,
+   "true_arousal": 0.19
+  },
+  {
+   "title": "Thank You",
+   "artist": "Xzibit",
+   "split": "test",
+   "valence": -0.1068,
+   "arousal": 0.1008,
+   "true_valence": 0.2912,
+   "true_arousal": -0.2888
+  },
+  {
+   "title": "Don't Fade Away",
+   "artist": "Dead Can Dance",
+   "split": "test",
+   "valence": 0.3936,
+   "arousal": -0.3524,
+   "true_valence": -0.3438,
+   "true_arousal": -0.3725
+  },
+  {
+   "title": "Grand Ole Opry Song",
+   "artist": "The Nitty Gritty Dirt Band",
+   "split": "test",
+   "valence": 0.1689,
+   "arousal": -0.2222,
+   "true_valence": 0.6125,
+   "true_arousal": 0.19
+  },
+  {
+   "title": "Look at Little Sister",
+   "artist": "Hank Ballard & the Midnighters",
+   "split": "test",
+   "valence": 0.6132,
+   "arousal": 0.0294,
+   "true_valence": 0.6088,
+   "true_arousal": 0.4275
+  },
+  {
+   "title": "Silence = Death",
+   "artist": "Within Reach",
+   "split": "test",
+   "valence": -0.4682,
+   "arousal": 0.276,
+   "true_valence": -0.4125,
+   "true_arousal": 0.0125
+  },
+  {
+   "title": "Sailing to Philadelphia",
+   "artist": "Mark Knopfler",
+   "split": "test",
+   "valence": 0.4855,
+   "arousal": -0.2665,
+   "true_valence": 0.555,
+   "true_arousal": -0.155
+  },
+  {
+   "title": "Warhead",
+   "artist": "Venom",
+   "split": "test",
+   "valence": -0.3863,
+   "arousal": 0.1787,
+   "true_valence": -0.26,
+   "true_arousal": 0.1575
   }
- ],
- "temperature": 1.7557
+ ]
 }

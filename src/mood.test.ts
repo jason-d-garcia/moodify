@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EMOTIONS, blendAt, emotionAt, nearest, placeSong, spotifySearchUrl, toValenceArousal } from "./mood";
+import { EMOTIONS, quadrantOf, blendAt, emotionAt, nearest, placeSong, spotifySearchUrl, toValenceArousal } from "./mood";
 
 const one = (m: "happy" | "sad" | "angry" | "relaxed") => ({
   happy: 0, sad: 0, angry: 0, relaxed: 0, [m]: 1,
@@ -86,5 +86,13 @@ describe("emotionAt", () => {
 
   it("calls the centre mixed", () => {
     expect(emotionAt(0.05, -0.1)).toBeNull();
+  });
+});
+
+describe("valence/arousal songs", () => {
+  it("uses predicted coordinates directly", () => {
+    const s = placeSong({ title: "A", artist: "x", valence: -0.3, arousal: 0.6 }, 0);
+    expect([s.valence, s.arousal, s.top, s.confidence]).toEqual([-0.3, 0.6, "angry", 1]);
+    expect(quadrantOf(0.2, -0.1)).toBe("relaxed");
   });
 });

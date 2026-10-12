@@ -27,52 +27,46 @@ position falls in.
 
 ## How songs are placed
 
-Each MoodyLyrics class is one quadrant of Russell's circumplex
-(Happy +V+A, Angry −V+A, Sad −V−A, Relaxed +V−A). A song sits at its expected quadrant
-position:
+A BERT regressor (bert-base-cased, pooled output → dropout → linear → tanh) reads each song's
+lyrics and predicts valence and arousal directly, each in [−1, 1]. The song's emotion is the
+section that point falls in. Code: `scripts/train_va.py`.
 
-```
-valence = p(happy) + p(relaxed) − p(angry) − p(sad)
-arousal = p(happy) + p(angry) − p(sad) − p(relaxed)
-```
-
-**Caveat:** these are not supervised valence/arousal estimates. A song the model is unsure
-about lands near the centre, so "neutral" and "ambiguous" look the same. The UI fades
-low-confidence songs and tags any song whose top class is under 50% as *uncertain*.
+Earlier versions used a four-class MoodyLyrics classifier mapped to the circle by expected
+quadrant position (`valence = p(happy) + p(relaxed) − p(angry) − p(sad)`, and likewise for
+arousal). That placed confident songs near the diagonals and left 6 of the 16 sections empty,
+which is why the map now uses the regressor. The classifier catalog is in git history
+(commit b2b2547) and the app still renders it if `source` is `"bert"`.
 
 ## Data
 
-`src/data/catalog.json` holds the 141 **held-out test songs** from a retrained model
-(bert-base-cased, max_len 160, 5 epochs, best checkpoint at epoch 3), with their MoodyLyrics
-label in `true_mood`. Only test-split songs are shown, so the model never saw any of them in
-training.
+`src/data/catalog.json` holds **held-out test songs** from MERGE, with predicted
+`valence`/`arousal` and the dataset's own scores in `true_valence`/`true_arousal`. The model
+never saw any of them in training. 2 of the 256 test songs are left out of the public demo
+because of their titles.
 
-| Test split (141 songs) | Value |
-|---|---|
-| Accuracy | 125/141 (88.7%) |
-| Macro F1 | 0.887 |
-| NLL before / after temperature scaling | 0.595 / 0.395 |
-| ECE (10 bins) before / after | 0.109 / 0.066 |
+MERGE's valence and arousal come from each song's AllMusic mood tags mapped through the
+Warriner word norms, not from listeners rating each song, so they are a noisy target.
 
-Training data: 2,000 MoodyLyrics songs with Genius lyrics, cleaned to 1,872 (empty or
-missing lyrics, non-lyrics pages, wrong-song matches and duplicates removed), split
-1,591 / 140 / 141 with seed 42.
+| Test split (256 songs) | Valence | Arousal |
+|---|---|---|
+| Pearson r | 0.696 | 0.559 |
+| R² | 0.473 | 0.289 |
+| MAE | 0.238 | 0.189 |
+| Pearson r, four-class classifier mapped to the circle | 0.462 | 0.106 |
 
-The raw softmax was overconfident (mean top-class probability 0.98), so probabilities are
-temperature-scaled with T = 1.7557, fitted on the validation split only. Even calibrated, most
-songs sit near a quadrant corner. That is a real limit of a four-class model: confident songs land
-near the diagonals, so on the current catalog 10 of the 16 sections hold songs and Happy,
-Alert, Tense, Sad, Fatigued and Calm are empty. Continuous valence/arousal regression is the
-fix.
+Split: 80/10/10 stratified by quadrant, seed 42, 2,044 training songs; 5 epochs, AdamW 2e-5,
+10% warmup. Predictions are pulled toward the centre (MERGE arousal has a narrow range), and
+the predicted quadrant matches the tagged quadrant for 169 of the 254 songs shown. Excited and
+Alert hold no songs yet. Lyrics only: tempo, key and production are not used.
 
-Caveats: the test set is small (about 35 per class, so one song moves a class score by about
-3 points); 3 test songs have a cover by another artist in train/val; the lyrics still contain
-some Genius page text.
+**Attribution.** Valence/arousal labels from MERGE: P. L. Louro, H. Redinho, R. Santos,
+R. Malheiro, R. Panda, R. P. Paiva (2024), *MERGE: A Bimodal Dataset for Static Music Emotion
+Recognition*, [Zenodo 13939205](https://zenodo.org/records/13939205), licensed
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Moodify is non-commercial.
+Lyrics were fetched locally for training and inference and are never stored in this repo.
 
-`scripts/score_catalog.py` regenerates a catalog from a checkpoint and a local
-`title, artist, lyrics` CSV. Lyrics are only read locally for inference and never written to
-the output. `scripts/make_demo_catalog.py` builds the earlier illustrative placeholder
-catalog, which is not model output.
+`scripts/score_catalog.py` regenerates a four-class catalog from a checkpoint and a local
+`title, artist, lyrics` CSV; lyrics are only read locally and never written to the output.
 
 ## Run
 

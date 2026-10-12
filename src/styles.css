@@ -277,3 +277,5 @@ body {
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   font-size: 1.6rem; line-height: 1;
 }
+.method a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 2px; }
+.method a:hover { color: var(--accent); }

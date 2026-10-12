@@ -4,9 +4,16 @@ export type Probs = Record<Mood, number>;
 export interface Song {
   title: string;
   artist: string;
-  probs: Probs;
+  /** Four-class model output. Absent when the model predicts valence/arousal directly. */
+  probs?: Probs;
+  /** Valence/arousal regression output in [-1, 1]. */
+  valence?: number;
+  arousal?: number;
   /** MoodyLyrics label, present for held-out test songs. */
   true_mood?: Mood;
+  /** Dataset valence/arousal for held-out test songs (MERGE). */
+  true_valence?: number;
+  true_arousal?: number;
   split?: "test" | "demo";
 }
 
@@ -43,17 +50,22 @@ export function toValenceArousal(p: Probs): { valence: number; arousal: number }
   };
 }
 
+/** The quadrant mood a point falls in. */
+export function quadrantOf(valence: number, arousal: number): Mood {
+  if (arousal >= 0) return valence >= 0 ? "happy" : "angry";
+  return valence >= 0 ? "relaxed" : "sad";
+}
+
 export function placeSong(song: Song, index: number): PlacedSong {
-  const { valence, arousal } = toValenceArousal(song.probs);
-  const top = MOODS.reduce((a, b) => (song.probs[b] > song.probs[a] ? b : a));
-  return {
-    ...song,
-    id: `${index}-${song.artist}-${song.title}`,
-    valence,
-    arousal,
-    confidence: song.probs[top],
-    top,
-  };
+  const id = `${index}-${song.artist}-${song.title}`;
+  if (song.valence !== undefined && song.arousal !== undefined) {
+    return { ...song, id, valence: song.valence, arousal: song.arousal, confidence: 1,
+      top: quadrantOf(song.valence, song.arousal) };
+  }
+  const probs = song.probs!;
+  const { valence, arousal } = toValenceArousal(probs);
+  const top = MOODS.reduce((a, b) => (probs[b] > probs[a] ? b : a));
+  return { ...song, id, valence, arousal, confidence: probs[top], top };
 }
 
 export function nearest(
