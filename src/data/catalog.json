@@ -1,16 +1,16 @@
 {
  "source": "bert-va",
- "note": "bert-base-cased fine-tuned to regress valence/arousal on MERGE lyrics (Louro et al. 2024, CC BY-NC 4.0). Held-out test split only; 2 of 256 test songs left out for their titles.",
+ "note": "bert-base-cased fine-tuned to regress valence/arousal on MERGE lyrics (Louro et al. 2024, CC BY-NC 4.0). Held-out test split only; 2 of 256 test songs left out for their titles. Each song is scored over its whole lyric, averaging overlapping 160-token windows.",
  "metrics": {
   "valence": {
-   "pearson": 0.6958,
-   "r2": 0.4731,
-   "mae": 0.2384
+   "pearson": 0.7242,
+   "r2": 0.5203,
+   "mae": 0.2273
   },
   "arousal": {
-   "pearson": 0.5585,
-   "r2": 0.289,
-   "mae": 0.1886
+   "pearson": 0.6046,
+   "r2": 0.3582,
+   "mae": 0.1804
   },
   "baseline_pearson": {
    "valence": 0.462,
@@ -42,8 +42,8 @@
    "title": "Spanish Guitar",
    "artist": "Toni Braxton",
    "split": "test",
-   "valence": 0.4814,
-   "arousal": -0.1021,
+   "valence": 0.5162,
+   "arousal": -0.0819,
    "true_valence": 0.4725,
    "true_arousal": -0.19
   },
@@ -51,8 +51,8 @@
    "title": "The Wedding Cake Walk",
    "artist": "Fred Astaire",
    "split": "test",
-   "valence": 0.5552,
-   "arousal": 0.1969,
+   "valence": 0.5301,
+   "arousal": 0.1735,
    "true_valence": 0.58,
    "true_arousal": 0.1625
   },
@@ -60,17 +60,17 @@
    "title": "I Go to Pieces",
    "artist": "Linda Ronstadt",
    "split": "test",
-   "valence": -0.536,
-   "arousal": -0.1429,
+   "valence": -0.5313,
+   "arousal": -0.139,
    "true_valence": -0.065,
-   "true_arousal": -0.0912
+   "true_arousal": -0.09125
   },
   {
    "title": "Showdown",
    "artist": "Barcode",
    "split": "test",
-   "valence": -0.3834,
-   "arousal": 0.2149,
+   "valence": -0.3885,
+   "arousal": 0.2303,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -78,8 +78,8 @@
    "title": "War",
    "artist": "Bruce Springsteen",
    "split": "test",
-   "valence": -0.4262,
-   "arousal": 0.074,
+   "valence": -0.3896,
+   "arousal": -0.0213,
    "true_valence": -0.625,
    "true_arousal": 0.625
   },
@@ -87,8 +87,8 @@
    "title": "Rudolph the Red-Nosed Reindeer",
    "artist": "Alan Jackson",
    "split": "test",
-   "valence": 0.5028,
-   "arousal": -0.1943,
+   "valence": 0.4914,
+   "arousal": -0.1514,
    "true_valence": 0.46,
    "true_arousal": -0.34
   },
@@ -96,8 +96,8 @@
    "title": "Desire Me",
    "artist": "Sam Cooke",
    "split": "test",
-   "valence": 0.4145,
-   "arousal": -0.0222,
+   "valence": 0.4348,
+   "arousal": -0.0624,
    "true_valence": 0.605,
    "true_arousal": -0.155
   },
@@ -105,8 +105,8 @@
    "title": "In Sufferance",
    "artist": "Disincarnate",
    "split": "test",
-   "valence": -0.3664,
-   "arousal": 0.1298,
+   "valence": -0.3889,
+   "arousal": 0.1321,
    "true_valence": -0.5475,
    "true_arousal": 0.1275
   },
@@ -114,8 +114,8 @@
    "title": "The Little Vagabond",
    "artist": "Greg Brown",
    "split": "test",
-   "valence": 0.4657,
-   "arousal": -0.3086,
+   "valence": 0.4339,
+   "arousal": -0.2863,
    "true_valence": 0.4725,
    "true_arousal": -0.525
   },
@@ -123,19 +123,19 @@
    "title": "The Way Worn Traveler",
    "artist": "Johnny Cash",
    "split": "test",
-   "valence": 0.055,
-   "arousal": -0.0069,
-   "true_valence": 0.5138,
-   "true_arousal": -0.1962
+   "valence": 0.019,
+   "arousal": 0.0036,
+   "true_valence": 0.51375,
+   "true_arousal": -0.19625
   },
   {
    "title": "Chords of Fame",
    "artist": "Marianne Faithfull",
    "split": "test",
-   "valence": 0.2524,
-   "arousal": -0.1079,
-   "true_valence": 0.5512,
-   "true_arousal": -0.1962
+   "valence": 0.2136,
+   "arousal": -0.0199,
+   "true_valence": 0.55125,
+   "true_arousal": -0.19625
   },
   {
    "title": "You Take Part in Creating the System [Bonus Track]",
@@ -159,8 +159,8 @@
    "title": "If It Weren't For Him",
    "artist": "Vince Gill",
    "split": "test",
-   "valence": -0.6204,
-   "arousal": -0.2213,
+   "valence": -0.6237,
+   "arousal": -0.2455,
    "true_valence": -0.3375,
    "true_arousal": -0.35
   },
@@ -170,15 +170,15 @@
    "split": "test",
    "valence": 0.4533,
    "arousal": -0.1886,
-   "true_valence": 0.5112,
+   "true_valence": 0.51125,
    "true_arousal": -0.4075
   },
   {
    "title": "Evil Woman",
    "artist": "Champion Jack Dupree",
    "split": "test",
-   "valence": 0.2784,
-   "arousal": 0.2586,
+   "valence": 0.3803,
+   "arousal": 0.2647,
    "true_valence": -0.515,
    "true_arousal": -0.1125
   },
@@ -186,8 +186,8 @@
    "title": "War Pigs",
    "artist": "Black Sabbath",
    "split": "test",
-   "valence": -0.4141,
-   "arousal": 0.1565,
+   "valence": -0.4328,
+   "arousal": 0.1609,
    "true_valence": -0.85,
    "true_arousal": 0.7
   },
@@ -195,8 +195,8 @@
    "title": "Jimmies Dream",
    "artist": "Crumbsuckers",
    "split": "test",
-   "valence": -0.3064,
-   "arousal": 0.03,
+   "valence": -0.4004,
+   "arousal": 0.106,
    "true_valence": -0.4475,
    "true_arousal": 0.0975
   },
@@ -204,8 +204,8 @@
    "title": "Crush 'Em",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.3751,
-   "arousal": 0.2707,
+   "valence": -0.393,
+   "arousal": 0.2364,
    "true_valence": -0.375,
    "true_arousal": 0.0875
   },
@@ -213,8 +213,8 @@
    "title": "Let’s Go Crazy",
    "artist": "Prince",
    "split": "test",
-   "valence": 0.1496,
-   "arousal": -0.1134,
+   "valence": 0.3714,
+   "arousal": 0.2403,
    "true_valence": 0.3625,
    "true_arousal": 0.4875
   },
@@ -224,15 +224,15 @@
    "split": "test",
    "valence": 0.0986,
    "arousal": -0.0917,
-   "true_valence": 0.4738,
+   "true_valence": 0.47375,
    "true_arousal": -0.26
   },
   {
    "title": "My City of Ruins",
    "artist": "Bruce Springsteen",
    "split": "test",
-   "valence": 0.2344,
-   "arousal": 0.2075,
+   "valence": 0.4403,
+   "arousal": 0.1646,
    "true_valence": -0.52,
    "true_arousal": -0.2975
   },
@@ -240,8 +240,8 @@
    "title": "You Make Me Believe",
    "artist": "Kenny G",
    "split": "test",
-   "valence": 0.6529,
-   "arousal": 0.1255,
+   "valence": 0.575,
+   "arousal": 0.0724,
    "true_valence": 0.3875,
    "true_arousal": -0.49
   },
@@ -249,10 +249,10 @@
    "title": "House on the Lake",
    "artist": "Rosanne Cash",
    "split": "test",
-   "valence": -0.2725,
-   "arousal": -0.31,
-   "true_valence": -0.3762,
-   "true_arousal": -0.3713
+   "valence": -0.2089,
+   "arousal": -0.2879,
+   "true_valence": -0.37625,
+   "true_arousal": -0.37125
   },
   {
    "title": "Hard Walking Hanna",
@@ -276,8 +276,8 @@
    "title": "Baby Makin' Hips",
    "artist": "Fantasia",
    "split": "test",
-   "valence": 0.4837,
-   "arousal": 0.4095,
+   "valence": 0.5175,
+   "arousal": 0.3777,
    "true_valence": 0.41,
    "true_arousal": 0.3375
   },
@@ -294,8 +294,8 @@
    "title": "Sex. Murder. Art.",
    "artist": "Slayer",
    "split": "test",
-   "valence": -0.4031,
-   "arousal": 0.1886,
+   "valence": -0.4071,
+   "arousal": 0.1979,
    "true_valence": -0.39,
    "true_arousal": 0.0975
   },
@@ -303,10 +303,10 @@
    "title": "I Wanna Grow Up To Be a Politician",
    "artist": "The Byrds",
    "split": "test",
-   "valence": 0.1667,
-   "arousal": -0.025,
+   "valence": 0.2288,
+   "arousal": 0.0479,
    "true_valence": 0.65,
-   "true_arousal": 0.2488
+   "true_arousal": 0.24875
   },
   {
    "title": "Wish you were here",
@@ -321,8 +321,8 @@
    "title": "Love on Your Side (Rap Boy Rap)",
    "artist": "Thompson Twins",
    "split": "test",
-   "valence": 0.4557,
-   "arousal": 0.1143,
+   "valence": 0.2828,
+   "arousal": 0.0469,
    "true_valence": -0.3425,
    "true_arousal": -0.2275
   },
@@ -330,8 +330,8 @@
    "title": "Gets Me Through",
    "artist": "Ozzy Osbourne",
    "split": "test",
-   "valence": -0.1146,
-   "arousal": -0.1353,
+   "valence": 0.0448,
+   "arousal": -0.0676,
    "true_valence": -0.21,
    "true_arousal": 0.0875
   },
@@ -339,8 +339,8 @@
    "title": "Baby, I'm for Real",
    "artist": "The Originals",
    "split": "test",
-   "valence": 0.2459,
-   "arousal": -0.0012,
+   "valence": 0.3598,
+   "arousal": 0.0478,
    "true_valence": 0.37,
    "true_arousal": -0.49
   },
@@ -357,8 +357,8 @@
    "title": "Laura (What's He Got That I Ain't Got)",
    "artist": "Leon Ashley",
    "split": "test",
-   "valence": 0.0732,
-   "arousal": -0.2123,
+   "valence": -0.1581,
+   "arousal": -0.126,
    "true_valence": -0.5475,
    "true_arousal": -0.0525
   },
@@ -368,33 +368,33 @@
    "split": "test",
    "valence": -0.3188,
    "arousal": -0.1479,
-   "true_valence": -0.3162,
-   "true_arousal": -0.3312
+   "true_valence": -0.31625,
+   "true_arousal": -0.33125
   },
   {
    "title": "Straight to Hell",
    "artist": "Flotsam and Jetsam",
    "split": "test",
-   "valence": -0.4449,
-   "arousal": 0.1083,
-   "true_valence": -0.2562,
+   "valence": -0.4557,
+   "arousal": 0.109,
+   "true_valence": -0.25625,
    "true_arousal": 0.0825
   },
   {
    "title": "Let's Wait Awhile",
    "artist": "Janet Jackson",
    "split": "test",
-   "valence": 0.5726,
-   "arousal": -0.1075,
+   "valence": 0.5615,
+   "arousal": -0.0625,
    "true_valence": 0.5375,
-   "true_arousal": -0.4088
+   "true_arousal": -0.40875
   },
   {
    "title": "Red Blue Jeans and a Pony Tail",
    "artist": "Gene Vincent",
    "split": "test",
-   "valence": 0.5813,
-   "arousal": 0.2991,
+   "valence": 0.5872,
+   "arousal": 0.265,
    "true_valence": 0.6125,
    "true_arousal": 0.45
   },
@@ -411,8 +411,8 @@
    "title": "Moody's Mood for Love",
    "artist": "Rachelle Ferrell",
    "split": "test",
-   "valence": 0.621,
-   "arousal": 0.332,
+   "valence": 0.5713,
+   "arousal": 0.1099,
    "true_valence": 0.555,
    "true_arousal": -0.19
   },
@@ -420,17 +420,17 @@
    "title": "Sally Sue Brown",
    "artist": "Bob Dylan",
    "split": "test",
-   "valence": 0.0071,
-   "arousal": 0.0441,
-   "true_valence": 0.5938,
+   "valence": -0.0105,
+   "arousal": 0.0165,
+   "true_valence": 0.59375,
    "true_arousal": 0.215
   },
   {
    "title": "The Bleeding",
    "artist": "Five Finger Deadth Punch",
    "split": "test",
-   "valence": -0.5223,
-   "arousal": 0.0003,
+   "valence": -0.4607,
+   "arousal": 0.0559,
    "true_valence": -0.75,
    "true_arousal": 0.7
   },
@@ -438,17 +438,17 @@
    "title": "We Are Family",
    "artist": "Chic",
    "split": "test",
-   "valence": 0.643,
-   "arousal": 0.2286,
+   "valence": 0.6432,
+   "arousal": 0.232,
    "true_valence": 0.6775,
-   "true_arousal": 0.2962
+   "true_arousal": 0.29625
   },
   {
    "title": "Out of Mind",
    "artist": "The Cure",
    "split": "test",
-   "valence": -0.2848,
-   "arousal": 0.0342,
+   "valence": 0.0068,
+   "arousal": 0.1002,
    "true_valence": -0.2625,
    "true_arousal": 0.1425
   },
@@ -456,18 +456,18 @@
    "title": "Storm in a Teacup",
    "artist": "Erasure",
    "split": "test",
-   "valence": -0.1401,
-   "arousal": -0.2837,
-   "true_valence": -0.1462,
+   "valence": -0.249,
+   "arousal": -0.2834,
+   "true_valence": -0.14625,
    "true_arousal": -0.2625
   },
   {
    "title": "I Wanna Hold You",
    "artist": "Al Green",
    "split": "test",
-   "valence": 0.4248,
-   "arousal": 0.0332,
-   "true_valence": 0.6062,
+   "valence": 0.4901,
+   "arousal": 0.1609,
+   "true_valence": 0.60625,
    "true_arousal": 0.3
   },
   {
@@ -483,8 +483,8 @@
    "title": "Lately",
    "artist": "Stevie Wonder",
    "split": "test",
-   "valence": -0.5481,
-   "arousal": -0.2829,
+   "valence": -0.4764,
+   "arousal": -0.3022,
    "true_valence": -0.6,
    "true_arousal": -0.425
   },
@@ -492,19 +492,19 @@
    "title": "The Mexican 2002",
    "artist": "Marc Anthony",
    "split": "test",
-   "valence": 0.6047,
-   "arousal": 0.4238,
-   "true_valence": 0.4488,
+   "valence": 0.6159,
+   "arousal": 0.4154,
+   "true_valence": 0.44875,
    "true_arousal": 0.335
   },
   {
    "title": "Baby a Go-Go",
    "artist": "Barbara McNair",
    "split": "test",
-   "valence": 0.6095,
-   "arousal": 0.2228,
+   "valence": 0.5763,
+   "arousal": 0.111,
    "true_valence": -0.505,
-   "true_arousal": -0.0712
+   "true_arousal": -0.07125
   },
   {
    "title": "Almost Like Being in Love",
@@ -519,8 +519,8 @@
    "title": "Angels Among Us",
    "artist": "Alabama",
    "split": "test",
-   "valence": 0.3507,
-   "arousal": -0.4462,
+   "valence": 0.3987,
+   "arousal": -0.3904,
    "true_valence": 0.4225,
    "true_arousal": -0.435
   },
@@ -528,17 +528,17 @@
    "title": "Modulation",
    "artist": "Ani DiFranco",
    "split": "test",
-   "valence": -0.3922,
-   "arousal": -0.0359,
-   "true_valence": -0.2312,
-   "true_arousal": -0.1488
+   "valence": -0.2859,
+   "arousal": -0.0293,
+   "true_valence": -0.23125,
+   "true_arousal": -0.14875
   },
   {
    "title": "Our Love Is Here to Stay",
    "artist": "Rod Stewart",
    "split": "test",
-   "valence": 0.3882,
-   "arousal": -0.1991,
+   "valence": 0.3914,
+   "arousal": -0.2061,
    "true_valence": 0.6475,
    "true_arousal": 0.0775
   },
@@ -546,17 +546,17 @@
    "title": "Gentle on My Mind",
    "artist": "Aretha Franklin",
    "split": "test",
-   "valence": 0.3739,
-   "arousal": -0.1426,
-   "true_valence": 0.5712,
+   "valence": 0.4963,
+   "arousal": 0.0382,
+   "true_valence": 0.57125,
    "true_arousal": 0.0325
   },
   {
    "title": "Im Happy Just to Dance With You",
    "artist": "The Beatles",
    "split": "test",
-   "valence": 0.6003,
-   "arousal": 0.1842,
+   "valence": 0.6001,
+   "arousal": 0.1509,
    "true_valence": 0.6125,
    "true_arousal": 0.125
   },
@@ -564,8 +564,8 @@
    "title": "(I Got Spurs That) Jingle, Jangle, Jingle",
    "artist": "Kay Kyser",
    "split": "test",
-   "valence": 0.5951,
-   "arousal": 0.1908,
+   "valence": 0.5505,
+   "arousal": 0.1816,
    "true_valence": 0.6575,
    "true_arousal": 0.1725
   },
@@ -573,10 +573,10 @@
    "title": "Rio [US Edit]",
    "artist": "Duran Duran",
    "split": "test",
-   "valence": 0.6422,
-   "arousal": 0.255,
+   "valence": 0.6189,
+   "arousal": 0.1571,
    "true_valence": 0.6025,
-   "true_arousal": 0.3338
+   "true_arousal": 0.33375
   },
   {
    "title": "Reaching For the Moon",
@@ -591,8 +591,8 @@
    "title": "Victory",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.4043,
-   "arousal": 0.1857,
+   "valence": -0.3956,
+   "arousal": 0.1791,
    "true_valence": -0.375,
    "true_arousal": 0.0875
   },
@@ -600,8 +600,8 @@
    "title": "Sickness",
    "artist": "Obituary",
    "split": "test",
-   "valence": -0.4475,
-   "arousal": 0.1781,
+   "valence": -0.4458,
+   "arousal": 0.1478,
    "true_valence": -0.325,
    "true_arousal": 0.1275
   },
@@ -609,8 +609,8 @@
    "title": "5D (Fifth Dimension)",
    "artist": "The Byrds",
    "split": "test",
-   "valence": -0.0682,
-   "arousal": -0.1217,
+   "valence": -0.0376,
+   "arousal": -0.1488,
    "true_valence": 0.335,
    "true_arousal": -0.37
   },
@@ -618,8 +618,8 @@
    "title": "Gloomy Sunday",
    "artist": "Billie Holliday",
    "split": "test",
-   "valence": -0.1579,
-   "arousal": -0.3638,
+   "valence": -0.19,
+   "arousal": -0.3418,
    "true_valence": -0.575,
    "true_arousal": -0.65
   },
@@ -627,9 +627,9 @@
    "title": "Highway Highway",
    "artist": "Joe Cocker",
    "split": "test",
-   "valence": 0.0083,
-   "arousal": -0.3474,
-   "true_valence": -0.6538,
+   "valence": -0.0484,
+   "arousal": -0.312,
+   "true_valence": -0.65375,
    "true_arousal": -0.2675
   },
   {
@@ -645,8 +645,8 @@
    "title": "Don't Cha",
    "artist": "Busta Rhymes",
    "split": "test",
-   "valence": 0.5292,
-   "arousal": 0.5244,
+   "valence": 0.4428,
+   "arousal": 0.3522,
    "true_valence": 0.605,
    "true_arousal": 0.275
   },
@@ -654,8 +654,8 @@
    "title": "Nobody Does It Better",
    "artist": "Carly Simon",
    "split": "test",
-   "valence": -0.1715,
-   "arousal": -0.3572,
+   "valence": 0.1677,
+   "arousal": -0.251,
    "true_valence": 0.42,
    "true_arousal": -0.405
   },
@@ -663,35 +663,35 @@
    "title": "The Drugs Don't Work",
    "artist": "The Verve",
    "split": "test",
-   "valence": -0.36,
-   "arousal": -0.1396,
+   "valence": -0.4312,
+   "arousal": -0.02,
    "true_valence": -0.445,
-   "true_arousal": -0.3137
+   "true_arousal": -0.31375
   },
   {
    "title": "Zion in a Vision",
    "artist": "Garnett Silk",
    "split": "test",
-   "valence": 0.501,
-   "arousal": 0.017,
-   "true_valence": 0.3812,
-   "true_arousal": -0.2288
+   "valence": 0.4716,
+   "arousal": -0.0372,
+   "true_valence": 0.38125,
+   "true_arousal": -0.22875
   },
   {
    "title": "All I Want for Christmas Is a Real Good Tan",
    "artist": "Kenny Chesney",
    "split": "test",
-   "valence": 0.5242,
-   "arousal": -0.0364,
-   "true_valence": 0.5712,
+   "valence": 0.5374,
+   "arousal": -0.0036,
+   "true_valence": 0.57125,
    "true_arousal": -0.355
   },
   {
    "title": "Spirit in Black",
    "artist": "Slayer",
    "split": "test",
-   "valence": -0.3486,
-   "arousal": 0.027,
+   "valence": -0.3717,
+   "arousal": 0.0265,
    "true_valence": -0.39,
    "true_arousal": 0.0975
   },
@@ -699,8 +699,8 @@
    "title": "Voice of the Voiceless",
    "artist": "Rage Against the Machine",
    "split": "test",
-   "valence": -0.3739,
-   "arousal": 0.1479,
+   "valence": -0.3397,
+   "arousal": 0.0138,
    "true_valence": -0.2775,
    "true_arousal": 0.16
   },
@@ -708,8 +708,8 @@
    "title": "Beautiful Horses",
    "artist": "The Blood Brothers",
    "split": "test",
-   "valence": -0.4366,
-   "arousal": 0.2306,
+   "valence": -0.4432,
+   "arousal": 0.2059,
    "true_valence": -0.555,
    "true_arousal": 0.16
   },
@@ -717,8 +717,8 @@
    "title": "Ten Commandments of Love",
    "artist": "Bob Marley",
    "split": "test",
-   "valence": 0.446,
-   "arousal": -0.2036,
+   "valence": 0.4994,
+   "arousal": -0.1086,
    "true_valence": 0.4725,
    "true_arousal": -0.1575
   },
@@ -726,17 +726,17 @@
    "title": "Good Luck",
    "artist": "Basement Jaxx",
    "split": "test",
-   "valence": -0.1768,
-   "arousal": 0.0082,
-   "true_valence": 0.3812,
-   "true_arousal": 0.3688
+   "valence": 0.1,
+   "arousal": 0.0253,
+   "true_valence": 0.38125,
+   "true_arousal": 0.36875
   },
   {
    "title": "Everybody Loves the Sunshine",
    "artist": "Incognito",
    "split": "test",
-   "valence": 0.5979,
-   "arousal": 0.0453,
+   "valence": 0.5808,
+   "arousal": 0.0952,
    "true_valence": 0.6425,
    "true_arousal": 0.125
   },
@@ -744,8 +744,8 @@
    "title": "You Can't Hurry Love",
    "artist": "Dixie Chicks",
    "split": "test",
-   "valence": 0.0245,
-   "arousal": -0.1574,
+   "valence": 0.2431,
+   "arousal": -0.1552,
    "true_valence": 0.6125,
    "true_arousal": 0.405
   },
@@ -753,8 +753,8 @@
    "title": "Eat You Alive",
    "artist": "Limp Bizkit",
    "split": "test",
-   "valence": -0.0101,
-   "arousal": 0.2786,
+   "valence": 0.1595,
+   "arousal": 0.2754,
    "true_valence": -0.4725,
    "true_arousal": 0.035
   },
@@ -762,8 +762,8 @@
    "title": "Good Hearted Woman",
    "artist": "Deana Carter",
    "split": "test",
-   "valence": 0.5264,
-   "arousal": -0.0905,
+   "valence": 0.5209,
+   "arousal": -0.0644,
    "true_valence": -0.1825,
    "true_arousal": -0.3175
   },
@@ -771,8 +771,8 @@
    "title": "Save a Bread",
    "artist": "The Dominoes",
    "split": "test",
-   "valence": 0.319,
-   "arousal": -0.3549,
+   "valence": 0.2139,
+   "arousal": -0.3853,
    "true_valence": 0.4725,
    "true_arousal": -0.2275
   },
@@ -780,8 +780,8 @@
    "title": "This Is Not an Exit",
    "artist": "Anthrax",
    "split": "test",
-   "valence": -0.4381,
-   "arousal": 0.0346,
+   "valence": -0.3783,
+   "arousal": 0.0068,
    "true_valence": -0.39,
    "true_arousal": 0.0875
   },
@@ -789,8 +789,8 @@
    "title": "I've Got a Rock 'N' Roll Heart",
    "artist": "Eric Clapton",
    "split": "test",
-   "valence": 0.624,
-   "arousal": 0.2319,
+   "valence": 0.5219,
+   "arousal": 0.1895,
    "true_valence": 0.6125,
    "true_arousal": 0.125
   },
@@ -825,17 +825,17 @@
    "title": "Night Fever",
    "artist": "Bee Gees",
    "split": "test",
-   "valence": 0.5724,
-   "arousal": 0.1372,
+   "valence": 0.5692,
+   "arousal": 0.1525,
    "true_valence": 0.5775,
-   "true_arousal": 0.2938
+   "true_arousal": 0.29375
   },
   {
    "title": "Set You Free",
    "artist": "Allison Moorer",
    "split": "test",
-   "valence": -0.1222,
-   "arousal": -0.2027,
+   "valence": -0.0521,
+   "arousal": -0.2158,
    "true_valence": -0.5475,
    "true_arousal": -0.0525
   },
@@ -843,8 +843,8 @@
    "title": "In Germany Before the War",
    "artist": "Marianne Faithfull",
    "split": "test",
-   "valence": -0.1248,
-   "arousal": -0.3407,
+   "valence": -0.0609,
+   "arousal": -0.3691,
    "true_valence": -0.4275,
    "true_arousal": -0.35
   },
@@ -852,8 +852,8 @@
    "title": "L-O-V-E",
    "artist": "Nat King Cole",
    "split": "test",
-   "valence": 0.5687,
-   "arousal": -0.1254,
+   "valence": 0.5579,
+   "arousal": -0.1477,
    "true_valence": 0.555,
    "true_arousal": 0.255
   },
@@ -861,8 +861,8 @@
    "title": "Don't Let Me Lose This Dream",
    "artist": "Aretha Franklin",
    "split": "test",
-   "valence": -0.42,
-   "arousal": -0.1049,
+   "valence": 0.2367,
+   "arousal": 0.056,
    "true_valence": 0.1375,
    "true_arousal": -0.1975
   },
@@ -870,8 +870,8 @@
    "title": "Heaven Help",
    "artist": "Lenny Kravitz",
    "split": "test",
-   "valence": 0.2795,
-   "arousal": -0.0234,
+   "valence": 0.1478,
+   "arousal": -0.0263,
    "true_valence": 0.555,
    "true_arousal": -0.095
   },
@@ -879,8 +879,8 @@
    "title": "Cursed Realms (Of the Winterdemons)",
    "artist": "Sunn O)))",
    "split": "test",
-   "valence": -0.2612,
-   "arousal": -0.067,
+   "valence": -0.2728,
+   "arousal": -0.0739,
    "true_valence": -0.3,
    "true_arousal": -0.2875
   },
@@ -888,17 +888,17 @@
    "title": "Were You There?",
    "artist": "Sam Cooke",
    "split": "test",
-   "valence": 0.1805,
-   "arousal": -0.1384,
+   "valence": -0.1163,
+   "arousal": -0.1272,
    "true_valence": 0.29,
-   "true_arousal": -0.2988
+   "true_arousal": -0.29875
   },
   {
    "title": "Miracle",
    "artist": "Céline Dion",
    "split": "test",
-   "valence": 0.1115,
-   "arousal": -0.1866,
+   "valence": 0.1978,
+   "arousal": -0.1948,
    "true_valence": 0.4925,
    "true_arousal": -0.4675
   },
@@ -906,10 +906,10 @@
    "title": "If I Could Only Fly",
    "artist": "Merle Haggard",
    "split": "test",
-   "valence": -0.3463,
-   "arousal": -0.4514,
-   "true_valence": -0.3262,
-   "true_arousal": -0.2838
+   "valence": -0.3891,
+   "arousal": -0.4398,
+   "true_valence": -0.32625,
+   "true_arousal": -0.28375
   },
   {
    "title": "GM2 1",
@@ -924,8 +924,8 @@
    "title": "Last of the Mohicans",
    "artist": "Black Child",
    "split": "test",
-   "valence": -0.2412,
-   "arousal": 0.0965,
+   "valence": -0.2957,
+   "arousal": 0.1019,
    "true_valence": -0.3,
    "true_arousal": 0.1575
   },
@@ -933,8 +933,8 @@
    "title": "Yellow Submarine",
    "artist": "Beatles",
    "split": "test",
-   "valence": 0.1509,
-   "arousal": -0.0978,
+   "valence": 0.1425,
+   "arousal": -0.0711,
    "true_valence": 0.5,
    "true_arousal": 0.5
   },
@@ -942,8 +942,8 @@
    "title": "Lost",
    "artist": "Drown",
    "split": "test",
-   "valence": -0.4975,
-   "arousal": -0.3547,
+   "valence": -0.4015,
+   "arousal": -0.272,
    "true_valence": -0.215,
    "true_arousal": 0.29
   },
@@ -951,8 +951,8 @@
    "title": "Dreamland",
    "artist": "Bob Marley",
    "split": "test",
-   "valence": 0.5703,
-   "arousal": -0.0758,
+   "valence": 0.5122,
+   "arousal": -0.1389,
    "true_valence": 0.375,
    "true_arousal": -0.4275
   },
@@ -960,26 +960,26 @@
    "title": "Call My Name",
    "artist": "Van Morrison",
    "split": "test",
-   "valence": 0.0048,
-   "arousal": -0.3355,
+   "valence": 0.2325,
+   "arousal": -0.1339,
    "true_valence": 0.3525,
-   "true_arousal": 0.2938
+   "true_arousal": 0.29375
   },
   {
    "title": "Skid Row",
    "artist": "Lonnie Brooks",
    "split": "test",
-   "valence": -0.0282,
-   "arousal": 0.0469,
-   "true_valence": -0.5012,
+   "valence": 0.0745,
+   "arousal": 0.0548,
+   "true_valence": -0.50125,
    "true_arousal": -0.0825
   },
   {
    "title": "Shoe Box",
    "artist": "Barenaked Ladies",
    "split": "test",
-   "valence": -0.3765,
-   "arousal": -0.2604,
+   "valence": -0.4391,
+   "arousal": -0.1962,
    "true_valence": 0.6425,
    "true_arousal": 0.1625
   },
@@ -987,8 +987,8 @@
    "title": "(There's No Place Like) Home for the Holidays",
    "artist": "Carpenters",
    "split": "test",
-   "valence": 0.4334,
-   "arousal": -0.2404,
+   "valence": 0.4499,
+   "arousal": -0.2066,
    "true_valence": 0.4725,
    "true_arousal": -0.49
   },
@@ -996,8 +996,8 @@
    "title": "Mr. Blue Sky",
    "artist": "Electric Light Orchestra",
    "split": "test",
-   "valence": 0.4571,
-   "arousal": -0.0373,
+   "valence": 0.4237,
+   "arousal": -0.1463,
    "true_valence": 0.43,
    "true_arousal": 0.275
   },
@@ -1005,8 +1005,8 @@
    "title": "Sycophantic",
    "artist": "Fleshgrind",
    "split": "test",
-   "valence": -0.3955,
-   "arousal": 0.1362,
+   "valence": -0.4199,
+   "arousal": 0.1939,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1014,8 +1014,8 @@
    "title": "Midnight Creeper",
    "artist": "Elton John",
    "split": "test",
-   "valence": 0.0114,
-   "arousal": 0.0171,
+   "valence": 0.0759,
+   "arousal": 0.0193,
    "true_valence": 0.555,
    "true_arousal": 0.08
   },
@@ -1035,14 +1035,14 @@
    "valence": 0.0774,
    "arousal": -0.35,
    "true_valence": -0.45,
-   "true_arousal": -0.3988
+   "true_arousal": -0.39875
   },
   {
    "title": "Fading Dimensions",
    "artist": "Darkane",
    "split": "test",
-   "valence": -0.3555,
-   "arousal": 0.117,
+   "valence": -0.3559,
+   "arousal": 0.1066,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1050,17 +1050,17 @@
    "title": "A Natural Woman",
    "artist": "Mariah Carey",
    "split": "test",
-   "valence": 0.5414,
-   "arousal": 0.0441,
-   "true_valence": 0.6262,
-   "true_arousal": 0.1462
+   "valence": 0.5591,
+   "arousal": 0.1788,
+   "true_valence": 0.62625,
+   "true_arousal": 0.14625
   },
   {
    "title": "A Way",
    "artist": "Biohazard",
    "split": "test",
-   "valence": -0.2341,
-   "arousal": -0.2282,
+   "valence": -0.2438,
+   "arousal": -0.2295,
    "true_valence": -0.39,
    "true_arousal": 0.1425
   },
@@ -1068,8 +1068,8 @@
    "title": "Tryin' Times",
    "artist": "Roberta Flack",
    "split": "test",
-   "valence": -0.283,
-   "arousal": 0.0297,
+   "valence": -0.2285,
+   "arousal": -0.0395,
    "true_valence": -0.5825,
    "true_arousal": -0.2375
   },
@@ -1077,8 +1077,8 @@
    "title": "Worldly Whys",
    "artist": "Defecation",
    "split": "test",
-   "valence": -0.1786,
-   "arousal": -0.0238,
+   "valence": -0.296,
+   "arousal": 0.044,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1086,8 +1086,8 @@
    "title": "I Got Stung",
    "artist": "Elvis",
    "split": "test",
-   "valence": 0.122,
-   "arousal": 0.1244,
+   "valence": 0.0163,
+   "arousal": 0.071,
    "true_valence": 0.625,
    "true_arousal": 0.2075
   },
@@ -1104,9 +1104,9 @@
    "title": "I Love This Bar",
    "artist": "Toby Keith",
    "split": "test",
-   "valence": 0.3828,
-   "arousal": 0.2471,
-   "true_valence": 0.5588,
+   "valence": 0.4818,
+   "arousal": 0.2976,
+   "true_valence": 0.55875,
    "true_arousal": 0.145
   },
   {
@@ -1122,17 +1122,17 @@
    "title": "The Violet and a Rose",
    "artist": "Little Jimmy Dickens",
    "split": "test",
-   "valence": 0.1606,
-   "arousal": -0.2372,
+   "valence": 0.0985,
+   "arousal": -0.2506,
    "true_valence": -0.505,
-   "true_arousal": -0.2362
+   "true_arousal": -0.23625
   },
   {
    "title": "You'll Think of Me",
    "artist": "Keith Urban",
    "split": "test",
-   "valence": -0.1776,
-   "arousal": -0.1898,
+   "valence": -0.2387,
+   "arousal": -0.2111,
    "true_valence": -0.315,
    "true_arousal": -0.25
   },
@@ -1149,17 +1149,17 @@
    "title": "The Last Mile of the Way",
    "artist": "Sam Cooke",
    "split": "test",
-   "valence": 0.3372,
-   "arousal": -0.2452,
+   "valence": 0.3585,
+   "arousal": -0.2436,
    "true_valence": 0.29,
-   "true_arousal": -0.1362
+   "true_arousal": -0.13625
   },
   {
    "title": "Ready to Die",
    "artist": "The Notorious B.I.G.",
    "split": "test",
-   "valence": -0.4038,
-   "arousal": 0.2021,
+   "valence": -0.3283,
+   "arousal": 0.2385,
    "true_valence": -0.39,
    "true_arousal": 0.1775
   },
@@ -1167,8 +1167,8 @@
    "title": "Dirt",
    "artist": "Revolting Cocks",
    "split": "test",
-   "valence": -0.3828,
-   "arousal": 0.1411,
+   "valence": -0.3862,
+   "arousal": 0.1396,
    "true_valence": -0.2025,
    "true_arousal": 0.16
   },
@@ -1185,8 +1185,8 @@
    "title": "Dreams",
    "artist": "The Corrs",
    "split": "test",
-   "valence": -0.2937,
-   "arousal": -0.1312,
+   "valence": -0.1732,
+   "arousal": -0.1615,
    "true_valence": 0.4725,
    "true_arousal": -0.2625
   },
@@ -1194,8 +1194,8 @@
    "title": "The Briar and the Rose",
    "artist": "Tom Waits",
    "split": "test",
-   "valence": 0.1364,
-   "arousal": -0.288,
+   "valence": 0.1672,
+   "arousal": -0.3156,
    "true_valence": -0.5825,
    "true_arousal": -0.1575
   },
@@ -1203,10 +1203,10 @@
    "title": "Stubborn Kind of Fellow",
    "artist": "Marvin Gaye",
    "split": "test",
-   "valence": 0.5295,
-   "arousal": 0.2988,
-   "true_valence": 0.6812,
-   "true_arousal": 0.2262
+   "valence": 0.5076,
+   "arousal": 0.2767,
+   "true_valence": 0.68125,
+   "true_arousal": 0.22625
   },
   {
    "title": "Shiny Things",
@@ -1221,8 +1221,8 @@
    "title": "London You're a Lady",
    "artist": "The Pogues",
    "split": "test",
-   "valence": -0.3353,
-   "arousal": 0.0179,
+   "valence": -0.3137,
+   "arousal": -0.0291,
    "true_valence": 0.5,
    "true_arousal": -0.2275
   },
@@ -1230,8 +1230,8 @@
    "title": "Help Me Understand",
    "artist": "Trace Adkins",
    "split": "test",
-   "valence": -0.2431,
-   "arousal": -0.3553,
+   "valence": -0.2987,
+   "arousal": -0.3483,
    "true_valence": -0.4375,
    "true_arousal": -0.3775
   },
@@ -1241,24 +1241,24 @@
    "split": "test",
    "valence": 0.0795,
    "arousal": -0.1529,
-   "true_valence": 0.6112,
+   "true_valence": 0.61125,
    "true_arousal": 0.1575
   },
   {
    "title": "I Ain't With Being Broke",
    "artist": "Geto Boys",
    "split": "test",
-   "valence": -0.3652,
-   "arousal": 0.1879,
-   "true_valence": -0.3212,
-   "true_arousal": 0.0838
+   "valence": -0.3444,
+   "arousal": 0.0889,
+   "true_valence": -0.32125,
+   "true_arousal": 0.08375
   },
   {
    "title": "Inflikted",
    "artist": "Cavalera Conspiracy",
    "split": "test",
-   "valence": -0.3644,
-   "arousal": 0.1031,
+   "valence": -0.3424,
+   "arousal": 0.1242,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1268,7 +1268,7 @@
    "split": "test",
    "valence": -0.4021,
    "arousal": 0.0792,
-   "true_valence": -0.3262,
+   "true_valence": -0.32625,
    "true_arousal": 0.12
   },
   {
@@ -1284,17 +1284,17 @@
    "title": "More Trife Life",
    "artist": "Mobb Deep",
    "split": "test",
-   "valence": -0.4943,
-   "arousal": 0.0706,
-   "true_valence": -0.3438,
-   "true_arousal": 0.0612
+   "valence": -0.3981,
+   "arousal": 0.1117,
+   "true_valence": -0.34375,
+   "true_arousal": 0.06125
   },
   {
    "title": "Writer in the Sun",
    "artist": "Donovan",
    "split": "test",
-   "valence": -0.2594,
-   "arousal": -0.2892,
+   "valence": -0.2411,
+   "arousal": -0.282,
    "true_valence": 0.5375,
    "true_arousal": -0.435
   },
@@ -1302,28 +1302,28 @@
    "title": "They All Laughed",
    "artist": "Louis Armstrong",
    "split": "test",
-   "valence": 0.24,
-   "arousal": -0.0697,
+   "valence": 0.1674,
+   "arousal": -0.1167,
    "true_valence": 0.655,
-   "true_arousal": 0.2062
+   "true_arousal": 0.20625
   },
   {
    "title": "Dread and the Fugitive Mind",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.3831,
-   "arousal": 0.0469,
-   "true_valence": -0.2888,
-   "true_arousal": 0.0388
+   "valence": -0.3471,
+   "arousal": 0.0573,
+   "true_valence": -0.28875,
+   "true_arousal": 0.03875
   },
   {
    "title": "Pink Pedal Pushers",
    "artist": "Carl Perkins",
    "split": "test",
-   "valence": 0.4208,
-   "arousal": 0.291,
-   "true_valence": 0.5938,
-   "true_arousal": 0.2488
+   "valence": 0.4063,
+   "arousal": 0.2656,
+   "true_valence": 0.59375,
+   "true_arousal": 0.24875
   },
   {
    "title": "Ferret & Featherbird",
@@ -1347,8 +1347,8 @@
    "title": "Deeper and Deeper [Shep's Fierce Deeper Dub]",
    "artist": "Madonna",
    "split": "test",
-   "valence": 0.466,
-   "arousal": 0.127,
+   "valence": 0.3434,
+   "arousal": 0.0179,
    "true_valence": 0.41,
    "true_arousal": 0.3375
   },
@@ -1358,15 +1358,15 @@
    "split": "test",
    "valence": -0.3908,
    "arousal": 0.0448,
-   "true_valence": -0.2888,
-   "true_arousal": 0.0388
+   "true_valence": -0.28875,
+   "true_arousal": 0.03875
   },
   {
    "title": "Blackbird",
    "artist": "Paul McCartney",
    "split": "test",
-   "valence": 0.1748,
-   "arousal": -0.2601,
+   "valence": 0.209,
+   "arousal": -0.2714,
    "true_valence": 0.2975,
    "true_arousal": -0.24
   },
@@ -1383,8 +1383,8 @@
    "title": "Silver Bells",
    "artist": "Vince Gill",
    "split": "test",
-   "valence": 0.4871,
-   "arousal": -0.2314,
+   "valence": 0.4699,
+   "arousal": -0.2356,
    "true_valence": 0.3875,
    "true_arousal": -0.28
   },
@@ -1392,8 +1392,8 @@
    "title": "Time Folding Machine",
    "artist": "Defecation",
    "split": "test",
-   "valence": -0.2751,
-   "arousal": 0.0636,
+   "valence": -0.2479,
+   "arousal": 0.0272,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1401,8 +1401,8 @@
    "title": "Could've Been You",
    "artist": "Cher",
    "split": "test",
-   "valence": 0.0427,
-   "arousal": -0.1035,
+   "valence": -0.1066,
+   "arousal": -0.2596,
    "true_valence": -0.5825,
    "true_arousal": -0.1575
   },
@@ -1410,8 +1410,8 @@
    "title": "What'd I Say, Pts. 1 & 2",
    "artist": "Ray Charles",
    "split": "test",
-   "valence": 0.5435,
-   "arousal": 0.3844,
+   "valence": 0.5031,
+   "arousal": 0.2805,
    "true_valence": 0.6125,
    "true_arousal": 0.275
   },
@@ -1419,17 +1419,17 @@
    "title": "How Do You Do?",
    "artist": "The BooMTown Rats",
    "split": "test",
-   "valence": 0.5153,
-   "arousal": 0.0821,
-   "true_valence": -0.3038,
-   "true_arousal": -0.1412
+   "valence": 0.4827,
+   "arousal": 0.0551,
+   "true_valence": -0.30375,
+   "true_arousal": -0.14125
   },
   {
    "title": "Whoopie-Ti-Yi-Yo, Get Along Little Dogies",
    "artist": "Woody Guthrie",
    "split": "test",
-   "valence": 0.4242,
-   "arousal": -0.0701,
+   "valence": 0.3798,
+   "arousal": -0.077,
    "true_valence": 0.375,
    "true_arousal": -0.2275
   },
@@ -1437,17 +1437,17 @@
    "title": "I Can't Stop",
    "artist": "Al Green",
    "split": "test",
-   "valence": 0.3307,
-   "arousal": 0.1395,
-   "true_valence": 0.5712,
+   "valence": 0.4089,
+   "arousal": 0.1779,
+   "true_valence": 0.57125,
    "true_arousal": 0.1275
   },
   {
    "title": "I'm Real",
    "artist": "Jennifer Lopez",
    "split": "test",
-   "valence": 0.3639,
-   "arousal": -0.092,
+   "valence": 0.2308,
+   "arousal": -0.0426,
    "true_valence": 0.495,
    "true_arousal": 0.095
   },
@@ -1455,8 +1455,8 @@
    "title": "Stormy Monday Blues",
    "artist": "Billy Eckstine",
    "split": "test",
-   "valence": 0.2785,
-   "arousal": -0.1157,
+   "valence": 0.0553,
+   "arousal": -0.1621,
    "true_valence": -0.4625,
    "true_arousal": -0.42
   },
@@ -1473,8 +1473,8 @@
    "title": "Discharged Reason",
    "artist": "Nuclear Assault",
    "split": "test",
-   "valence": -0.3901,
-   "arousal": 0.0479,
+   "valence": -0.4084,
+   "arousal": 0.0584,
    "true_valence": -0.4575,
    "true_arousal": 0.09
   },
@@ -1482,10 +1482,10 @@
    "title": "The Kill in Me",
    "artist": "P.O.S",
    "split": "test",
-   "valence": -0.3945,
-   "arousal": -0.0495,
+   "valence": -0.3453,
+   "arousal": -0.026,
    "true_valence": -0.3825,
-   "true_arousal": 0.1737
+   "true_arousal": 0.17375
   },
   {
    "title": "When Two Worlds Collide",
@@ -1500,8 +1500,8 @@
    "title": "Prince of Darkness",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.3975,
-   "arousal": 0.2018,
+   "valence": -0.363,
+   "arousal": 0.1515,
    "true_valence": -0.375,
    "true_arousal": 0.0875
   },
@@ -1509,8 +1509,8 @@
    "title": "Sick and Tired",
    "artist": "Black Sabbath",
    "split": "test",
-   "valence": -0.5057,
-   "arousal": 0.0812,
+   "valence": -0.5216,
+   "arousal": 0.0669,
    "true_valence": -0.4375,
    "true_arousal": -0.42
   },
@@ -1518,8 +1518,8 @@
    "title": "Dead Bodies Everywhere",
    "artist": "Korn",
    "split": "test",
-   "valence": -0.4725,
-   "arousal": 0.1318,
+   "valence": -0.5161,
+   "arousal": 0.1492,
    "true_valence": -0.85,
    "true_arousal": 0.85
   },
@@ -1527,8 +1527,8 @@
    "title": "Brazilian Rhyme",
    "artist": "Earth, Wind & Fire",
    "split": "test",
-   "valence": 0.4647,
-   "arousal": -0.101,
+   "valence": 0.4432,
+   "arousal": -0.1506,
    "true_valence": 0.53,
    "true_arousal": 0.0625
   },
@@ -1536,8 +1536,8 @@
    "title": "Angie",
    "artist": "Rolling Stones",
    "split": "test",
-   "valence": -0.318,
-   "arousal": -0.2142,
+   "valence": -0.0374,
+   "arousal": -0.1076,
    "true_valence": -0.375,
    "true_arousal": -0.425
   },
@@ -1545,8 +1545,8 @@
    "title": "Blood of Heroes",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.3024,
-   "arousal": 0.1544,
+   "valence": -0.3327,
+   "arousal": 0.1134,
    "true_valence": -0.375,
    "true_arousal": 0.0875
   },
@@ -1554,8 +1554,8 @@
    "title": "Young at Heart",
    "artist": "Frank Sinatra",
    "split": "test",
-   "valence": 0.5166,
-   "arousal": -0.1481,
+   "valence": 0.4752,
+   "arousal": -0.096,
    "true_valence": 0.4625,
    "true_arousal": -0.22
   },
@@ -1563,8 +1563,8 @@
    "title": "Rhythm Is Gonna Get You",
    "artist": "Gloria Estefan",
    "split": "test",
-   "valence": 0.57,
-   "arousal": 0.3312,
+   "valence": 0.6107,
+   "arousal": 0.3009,
    "true_valence": 0.6,
    "true_arousal": 0.19
   },
@@ -1572,8 +1572,8 @@
    "title": "No Rollin' Blues",
    "artist": "John Lee Hooker",
    "split": "test",
-   "valence": 0.0477,
-   "arousal": -0.1481,
+   "valence": 0.044,
+   "arousal": -0.1625,
    "true_valence": -0.315,
    "true_arousal": -0.42
   },
@@ -1581,8 +1581,8 @@
    "title": "My Kind of Girl",
    "artist": "Count Basie Orchestra",
    "split": "test",
-   "valence": 0.5154,
-   "arousal": -0.0898,
+   "valence": 0.5159,
+   "arousal": -0.0167,
    "true_valence": 0.5,
    "true_arousal": -0.215
   },
@@ -1590,8 +1590,8 @@
    "title": "Together (Wherever We Go)",
    "artist": "Sandra Church",
    "split": "test",
-   "valence": 0.1873,
-   "arousal": -0.2401,
+   "valence": 0.4175,
+   "arousal": -0.1808,
    "true_valence": 0.4125,
    "true_arousal": -0.0575
   },
@@ -1599,8 +1599,8 @@
    "title": "Sabbath Bloody Sabbath",
    "artist": "Black Sabbath",
    "split": "test",
-   "valence": -0.433,
-   "arousal": -0.0039,
+   "valence": -0.4576,
+   "arousal": 0.0602,
    "true_valence": -0.5475,
    "true_arousal": 0.3
   },
@@ -1608,8 +1608,8 @@
    "title": "Rock the House [Edit]",
    "artist": "Del the Funky Homosapien",
    "split": "test",
-   "valence": 0.3104,
-   "arousal": 0.2091,
+   "valence": 0.4643,
+   "arousal": 0.2968,
    "true_valence": 0.385,
    "true_arousal": -0.11
   },
@@ -1617,8 +1617,8 @@
    "title": "Impure Perfection",
    "artist": "Darkane",
    "split": "test",
-   "valence": -0.3689,
-   "arousal": 0.1099,
+   "valence": -0.3653,
+   "arousal": 0.0962,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1628,33 +1628,33 @@
    "split": "test",
    "valence": 0.2825,
    "arousal": -0.303,
-   "true_valence": 0.4088,
+   "true_valence": 0.40875,
    "true_arousal": 0.3375
   },
   {
    "title": "Come to Rest",
    "artist": "Blindside",
    "split": "test",
-   "valence": -0.2434,
-   "arousal": -0.0044,
-   "true_valence": -0.3862,
+   "valence": -0.3548,
+   "arousal": 0.0209,
+   "true_valence": -0.38625,
    "true_arousal": 0.07
   },
   {
    "title": "The Truth About Men",
    "artist": "Tracy Byrd",
    "split": "test",
-   "valence": -0.1619,
-   "arousal": 0.1398,
+   "valence": -0.2735,
+   "arousal": 0.0207,
    "true_valence": 0.68,
-   "true_arousal": 0.1362
+   "true_arousal": 0.13625
   },
   {
    "title": "Finger Poppin' Time",
    "artist": "Hank Ballard & the Midnighters",
    "split": "test",
-   "valence": 0.5505,
-   "arousal": 0.2399,
+   "valence": 0.559,
+   "arousal": 0.2271,
    "true_valence": 0.7375,
    "true_arousal": 0.405
   },
@@ -1662,17 +1662,17 @@
    "title": "Girl From Ipanema",
    "artist": "Stan Getz",
    "split": "test",
-   "valence": 0.4272,
-   "arousal": -0.31,
-   "true_valence": 0.5438,
+   "valence": 0.3197,
+   "arousal": -0.3527,
+   "true_valence": 0.54375,
    "true_arousal": -0.2925
   },
   {
    "title": "Sometimes",
    "artist": "Babes in Toyland",
    "split": "test",
-   "valence": -0.4118,
-   "arousal": -0.0223,
+   "valence": -0.421,
+   "arousal": -0.0101,
    "true_valence": -0.3825,
    "true_arousal": 0.0925
   },
@@ -1680,8 +1680,8 @@
    "title": "Mr. Lucky",
    "artist": "Revolting Cocks",
    "split": "test",
-   "valence": -0.316,
-   "arousal": 0.2194,
+   "valence": 0.0097,
+   "arousal": 0.2425,
    "true_valence": -0.2025,
    "true_arousal": 0.16
   },
@@ -1698,8 +1698,8 @@
    "title": "Cut It Dude",
    "artist": "The Queers",
    "split": "test",
-   "valence": -0.0457,
-   "arousal": 0.3278,
+   "valence": 0.1693,
+   "arousal": 0.2902,
    "true_valence": -0.425,
    "true_arousal": 0.0475
   },
@@ -1707,8 +1707,8 @@
    "title": "Is There Anybody There",
    "artist": "Scorpions",
    "split": "test",
-   "valence": 0.3342,
-   "arousal": -0.2878,
+   "valence": 0.2801,
+   "arousal": -0.2799,
    "true_valence": 0.42,
    "true_arousal": -0.1575
   },
@@ -1716,8 +1716,8 @@
    "title": "Give Me Back That Wig (Wig Wearing Woman)",
    "artist": "Lightnin' Hopkins",
    "split": "test",
-   "valence": 0.2856,
-   "arousal": 0.0906,
+   "valence": 0.2458,
+   "arousal": 0.0821,
    "true_valence": -0.4875,
    "true_arousal": -0.1125
   },
@@ -1725,8 +1725,8 @@
    "title": "Dance with my Father",
    "artist": "Luthor Vandross",
    "split": "test",
-   "valence": 0.0631,
-   "arousal": -0.2781,
+   "valence": 0.0227,
+   "arousal": -0.2934,
    "true_valence": -0.725,
    "true_arousal": -0.5
   },
@@ -1734,17 +1734,17 @@
    "title": "Atlantic City",
    "artist": "Bruce Springsteen",
    "split": "test",
-   "valence": -0.1829,
-   "arousal": 0.0696,
-   "true_valence": -0.1462,
-   "true_arousal": -0.2738
+   "valence": -0.0972,
+   "arousal": -0.0485,
+   "true_valence": -0.14625,
+   "true_arousal": -0.27375
   },
   {
    "title": "Turn on the Night",
    "artist": "Kiss",
    "split": "test",
-   "valence": 0.5806,
-   "arousal": 0.4168,
+   "valence": 0.5376,
+   "arousal": 0.343,
    "true_valence": 0.6425,
    "true_arousal": 0.0625
   },
@@ -1752,18 +1752,18 @@
    "title": "The Way I Am",
    "artist": "Merle Haggard",
    "split": "test",
-   "valence": 0.184,
-   "arousal": -0.1757,
-   "true_valence": 0.3162,
-   "true_arousal": -0.4162
+   "valence": 0.1042,
+   "arousal": -0.1752,
+   "true_valence": 0.31625,
+   "true_arousal": -0.41625
   },
   {
    "title": "Everything Falls Apart",
    "artist": "Hüsker Dü",
    "split": "test",
-   "valence": -0.3619,
-   "arousal": -0.0645,
-   "true_valence": -0.3212,
+   "valence": -0.3701,
+   "arousal": -0.0445,
+   "true_valence": -0.32125,
    "true_arousal": 0.1275
   },
   {
@@ -1772,15 +1772,15 @@
    "split": "test",
    "valence": 0.519,
    "arousal": -0.3334,
-   "true_valence": 0.4238,
-   "true_arousal": -0.4838
+   "true_valence": 0.42375,
+   "true_arousal": -0.48375
   },
   {
    "title": "Let's Ride",
    "artist": "Ja Rule",
    "split": "test",
-   "valence": -0.1966,
-   "arousal": 0.229,
+   "valence": -0.2169,
+   "arousal": 0.1642,
    "true_valence": -0.2775,
    "true_arousal": 0.1575
   },
@@ -1788,8 +1788,8 @@
    "title": "Rider in the Rain",
    "artist": "Randy Newman",
    "split": "test",
-   "valence": -0.1499,
-   "arousal": -0.0721,
+   "valence": -0.1677,
+   "arousal": -0.1771,
    "true_valence": 0.5625,
    "true_arousal": -0.3625
   },
@@ -1797,8 +1797,8 @@
    "title": "In the Bleak Mid Winter",
    "artist": "Sarah McLachlan",
    "split": "test",
-   "valence": 0.2444,
-   "arousal": -0.3084,
+   "valence": 0.2669,
+   "arousal": -0.3099,
    "true_valence": 0.46,
    "true_arousal": -0.4575
   },
@@ -1806,8 +1806,8 @@
    "title": "Life Is So Peculiar",
    "artist": "Louis Armstrong",
    "split": "test",
-   "valence": -0.0923,
-   "arousal": -0.2527,
+   "valence": 0.0556,
+   "arousal": -0.2331,
    "true_valence": 0.3875,
    "true_arousal": -0.26
   },
@@ -1815,8 +1815,8 @@
    "title": "Our Love",
    "artist": "Natalie Cole",
    "split": "test",
-   "valence": 0.5984,
-   "arousal": -0.0035,
+   "valence": 0.608,
+   "arousal": 0.1608,
    "true_valence": 0.925,
    "true_arousal": 0.675
   },
@@ -1824,8 +1824,8 @@
    "title": "Don't Make Me",
    "artist": "Blake Shelton",
    "split": "test",
-   "valence": -0.3208,
-   "arousal": -0.2304,
+   "valence": -0.1966,
+   "arousal": -0.2209,
    "true_valence": -0.4375,
    "true_arousal": -0.525
   },
@@ -1833,17 +1833,17 @@
    "title": "Door Peep",
    "artist": "Sinéad O'Connor",
    "split": "test",
-   "valence": 0.2203,
-   "arousal": -0.1868,
+   "valence": 0.2314,
+   "arousal": -0.1833,
    "true_valence": 0.4625,
-   "true_arousal": -0.1962
+   "true_arousal": -0.19625
   },
   {
    "title": "Dedicated",
    "artist": "Das EFX",
    "split": "test",
-   "valence": -0.3577,
-   "arousal": 0.2007,
+   "valence": -0.2983,
+   "arousal": 0.1566,
    "true_valence": -0.365,
    "true_arousal": 0.0875
   },
@@ -1851,19 +1851,19 @@
    "title": "Good Mourning/Black Friday",
    "artist": "Megadeth",
    "split": "test",
-   "valence": -0.3666,
-   "arousal": 0.2906,
-   "true_valence": -0.4062,
+   "valence": -0.372,
+   "arousal": 0.187,
+   "true_valence": -0.40625,
    "true_arousal": 0.0675
   },
   {
    "title": "Plastic Man",
    "artist": "The Kinks",
    "split": "test",
-   "valence": 0.6143,
-   "arousal": 0.1298,
+   "valence": 0.5915,
+   "arousal": 0.1218,
    "true_valence": 0.46,
-   "true_arousal": 0.0812
+   "true_arousal": 0.08125
   },
   {
    "title": "Reaganomics",
@@ -1878,8 +1878,8 @@
    "title": "Fear the Grand Inquisitor",
    "artist": "Pungent Stench",
    "split": "test",
-   "valence": -0.3734,
-   "arousal": 0.1419,
+   "valence": -0.3899,
+   "arousal": 0.1394,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -1887,8 +1887,8 @@
    "title": "Danke Schoen",
    "artist": "Wayne Newton",
    "split": "test",
-   "valence": 0.3909,
-   "arousal": -0.1129,
+   "valence": 0.3776,
+   "arousal": -0.2183,
    "true_valence": 0.5,
    "true_arousal": -0.15
   },
@@ -1896,26 +1896,26 @@
    "title": "Lovely Rita",
    "artist": "The Beatles",
    "split": "test",
-   "valence": 0.4639,
-   "arousal": -0.0217,
-   "true_valence": 0.4362,
-   "true_arousal": 0.0238
+   "valence": 0.4442,
+   "arousal": -0.0328,
+   "true_valence": 0.43625,
+   "true_arousal": 0.02375
   },
   {
    "title": "Baby Face",
    "artist": "Lou Reed",
    "split": "test",
-   "valence": -0.2337,
-   "arousal": 0.0163,
-   "true_valence": -0.0812,
+   "valence": 0.0761,
+   "arousal": 0.0361,
+   "true_valence": -0.08125,
    "true_arousal": -0.1575
   },
   {
    "title": "Foolin' Myself",
    "artist": "Buck Clayton",
    "split": "test",
-   "valence": -0.1433,
-   "arousal": -0.0083,
+   "valence": -0.2279,
+   "arousal": -0.0157,
    "true_valence": -0.4375,
    "true_arousal": -0.42
   },
@@ -1932,8 +1932,8 @@
    "title": "You're Gonna Need My Help",
    "artist": "Jimmy Reed",
    "split": "test",
-   "valence": -0.2785,
-   "arousal": -0.0377,
+   "valence": -0.2909,
+   "arousal": -0.0461,
    "true_valence": -0.5,
    "true_arousal": -0.1125
   },
@@ -1941,8 +1941,8 @@
    "title": "Dirge Inferno",
    "artist": "Cradle of Filth",
    "split": "test",
-   "valence": -0.4446,
-   "arousal": 0.1423,
+   "valence": -0.4334,
+   "arousal": 0.1525,
    "true_valence": -0.4625,
    "true_arousal": 0.0125
   },
@@ -1950,9 +1950,9 @@
    "title": "Stoned Is the Way of the Walk",
    "artist": "Cypress Hill",
    "split": "test",
-   "valence": 0.4866,
-   "arousal": 0.3039,
-   "true_valence": -0.2062,
+   "valence": 0.176,
+   "arousal": 0.2194,
+   "true_valence": -0.20625,
    "true_arousal": 0.0075
   },
   {
@@ -1968,9 +1968,9 @@
    "title": "Spit to See the Shine",
    "artist": "Babes in Toyland",
    "split": "test",
-   "valence": -0.1482,
-   "arousal": 0.1512,
-   "true_valence": -0.3888,
+   "valence": -0.0439,
+   "arousal": 0.1712,
+   "true_valence": -0.38875,
    "true_arousal": 0.0925
   },
   {
@@ -1986,17 +1986,17 @@
    "title": "Last Night Blues",
    "artist": "Lightnin' Hopkins",
    "split": "test",
-   "valence": -0.4224,
-   "arousal": -0.2217,
-   "true_valence": -0.3762,
-   "true_arousal": -0.1362
+   "valence": -0.1898,
+   "arousal": -0.2564,
+   "true_valence": -0.37625,
+   "true_arousal": -0.13625
   },
   {
    "title": "New York, New York",
    "artist": "Frank Sinatra",
    "split": "test",
-   "valence": 0.1981,
-   "arousal": 0.0786,
+   "valence": 0.2449,
+   "arousal": 0.0478,
    "true_valence": 0.55,
    "true_arousal": 0.425
   },
@@ -2004,8 +2004,8 @@
    "title": "Mortuary Love Affair",
    "artist": "Pungent Stench",
    "split": "test",
-   "valence": -0.2307,
-   "arousal": 0.1883,
+   "valence": -0.3119,
+   "arousal": 0.1783,
    "true_valence": -0.4125,
    "true_arousal": 0.0125
   },
@@ -2013,8 +2013,8 @@
    "title": "Bad Dreams",
    "artist": "Joni Mitchell",
    "split": "test",
-   "valence": -0.3418,
-   "arousal": 0.0138,
+   "valence": -0.3406,
+   "arousal": 0.024,
    "true_valence": -0.315,
    "true_arousal": -0.2175
   },
@@ -2022,8 +2022,8 @@
    "title": "For Your Entertainment",
    "artist": "Adam Lambert",
    "split": "test",
-   "valence": 0.557,
-   "arousal": 0.348,
+   "valence": 0.4913,
+   "arousal": 0.2388,
    "true_valence": 0.53,
    "true_arousal": 0.275
   },
@@ -2031,17 +2031,17 @@
    "title": "It Won't Be Long (Till I'll Be Leaving)",
    "artist": "Roy Acuff",
    "split": "test",
-   "valence": 0.3796,
-   "arousal": -0.1743,
+   "valence": 0.3867,
+   "arousal": -0.1693,
    "true_valence": 0.2275,
-   "true_arousal": -0.0912
+   "true_arousal": -0.09125
   },
   {
    "title": "He's Alive",
    "artist": "Dolly Parton",
    "split": "test",
-   "valence": -0.2536,
-   "arousal": -0.3351,
+   "valence": -0.0296,
+   "arousal": -0.2264,
    "true_valence": 0.3175,
    "true_arousal": -0.2975
   },
@@ -2049,26 +2049,26 @@
    "title": "Without Love (There Is Nothing)",
    "artist": "Tom Jones",
    "split": "test",
-   "valence": -0.395,
-   "arousal": -0.1565,
-   "true_valence": -0.2037,
+   "valence": -0.4034,
+   "arousal": -0.1816,
+   "true_valence": -0.20375,
    "true_arousal": -0.445
   },
   {
    "title": "Amateur Hour",
    "artist": "Sparks",
    "split": "test",
-   "valence": 0.6086,
-   "arousal": 0.2681,
-   "true_valence": 0.5863,
+   "valence": 0.5721,
+   "arousal": 0.2144,
+   "true_valence": 0.58625,
    "true_arousal": 0.1575
   },
   {
    "title": "She's A Woman",
    "artist": "Daryle Singletary",
    "split": "test",
-   "valence": -0.0339,
-   "arousal": -0.1141,
+   "valence": 0.0076,
+   "arousal": -0.1458,
    "true_valence": 0.3675,
    "true_arousal": -0.5525
   },
@@ -2076,17 +2076,17 @@
    "title": "Build Me Up",
    "artist": "Al Green",
    "split": "test",
-   "valence": -0.1373,
-   "arousal": -0.1067,
-   "true_valence": 0.5712,
+   "valence": 0.1094,
+   "arousal": -0.0275,
+   "true_valence": 0.57125,
    "true_arousal": 0.1275
   },
   {
    "title": "I Feel Good",
    "artist": "James Brown",
    "split": "test",
-   "valence": 0.6336,
-   "arousal": 0.3485,
+   "valence": 0.608,
+   "arousal": 0.3194,
    "true_valence": 0.825,
    "true_arousal": 0.675
   },
@@ -2094,8 +2094,8 @@
    "title": "You Should Be Dead",
    "artist": "50 Cent",
    "split": "test",
-   "valence": -0.3853,
-   "arousal": 0.1699,
+   "valence": -0.342,
+   "arousal": 0.1504,
    "true_valence": -0.8,
    "true_arousal": 0.875
   },
@@ -2103,8 +2103,8 @@
    "title": "Lookin' for a Love",
    "artist": "Bobby Womack",
    "split": "test",
-   "valence": 0.2979,
-   "arousal": 0.1028,
+   "valence": 0.3153,
+   "arousal": 0.0759,
    "true_valence": 0.33,
    "true_arousal": 0.2075
   },
@@ -2112,8 +2112,8 @@
    "title": "You Scared",
    "artist": "DJ Paul",
    "split": "test",
-   "valence": -0.2723,
-   "arousal": 0.2263,
+   "valence": -0.3617,
+   "arousal": 0.1436,
    "true_valence": -0.4175,
    "true_arousal": 0.045
   },
@@ -2121,8 +2121,8 @@
    "title": "Drama",
    "artist": "Calvin Richardson",
    "split": "test",
-   "valence": 0.5772,
-   "arousal": 0.1765,
+   "valence": 0.0219,
+   "arousal": 0.0603,
    "true_valence": -0.5825,
    "true_arousal": -0.1575
   },
@@ -2130,8 +2130,8 @@
    "title": "The Man That Got Away",
    "artist": "Ella Fitzgerald",
    "split": "test",
-   "valence": -0.1044,
-   "arousal": -0.194,
+   "valence": -0.2344,
+   "arousal": -0.2076,
    "true_valence": -0.4275,
    "true_arousal": -0.38
   },
@@ -2148,17 +2148,17 @@
    "title": "Outside My Window",
    "artist": "Stevie Wonder",
    "split": "test",
-   "valence": 0.5611,
-   "arousal": 0.2079,
-   "true_valence": 0.6962,
+   "valence": 0.551,
+   "arousal": 0.2239,
+   "true_valence": 0.69625,
    "true_arousal": 0.1575
   },
   {
    "title": "Gangsta Gangsta",
    "artist": "N.W.A",
    "split": "test",
-   "valence": -0.3806,
-   "arousal": 0.2364,
+   "valence": -0.3617,
+   "arousal": 0.1945,
    "true_valence": -0.2775,
    "true_arousal": 0.3625
   },
@@ -2175,8 +2175,8 @@
    "title": "Babe",
    "artist": "Glassjaw",
    "split": "test",
-   "valence": -0.4665,
-   "arousal": 0.0182,
+   "valence": -0.4545,
+   "arousal": -0.0253,
    "true_valence": -0.4425,
    "true_arousal": 0.07
   },
@@ -2184,17 +2184,17 @@
    "title": "Sunflower",
    "artist": "Glen Campbell",
    "split": "test",
-   "valence": 0.6033,
-   "arousal": 0.1668,
-   "true_valence": 0.6188,
-   "true_arousal": 0.2062
+   "valence": 0.596,
+   "arousal": 0.1676,
+   "true_valence": 0.61875,
+   "true_arousal": 0.20625
   },
   {
    "title": "I Wanna Dance with Somebody",
    "artist": "Whitney Houston",
    "split": "test",
-   "valence": -0.1229,
-   "arousal": -0.0245,
+   "valence": 0.0164,
+   "arousal": 0.0625,
    "true_valence": 0.55,
    "true_arousal": 0.8
   },
@@ -2202,8 +2202,8 @@
    "title": "What Am I Doing Hangin' 'Round",
    "artist": "The Monkees",
    "split": "test",
-   "valence": 0.1565,
-   "arousal": -0.2568,
+   "valence": -0.1941,
+   "arousal": -0.1844,
    "true_valence": 0.5025,
    "true_arousal": -0.37
   },
@@ -2211,8 +2211,8 @@
    "title": "Hate Worldwide",
    "artist": "Slayer",
    "split": "test",
-   "valence": -0.4162,
-   "arousal": 0.2214,
+   "valence": -0.4063,
+   "arousal": 0.2096,
    "true_valence": -0.3,
    "true_arousal": 0.2175
   },
@@ -2220,8 +2220,8 @@
    "title": "Who Wants the World?",
    "artist": "The Stranglers",
    "split": "test",
-   "valence": -0.1664,
-   "arousal": -0.0595,
+   "valence": -0.2015,
+   "arousal": -0.0419,
    "true_valence": -0.3425,
    "true_arousal": -0.2275
   },
@@ -2229,8 +2229,8 @@
    "title": "Don't Be Light",
    "artist": "Air",
    "split": "test",
-   "valence": 0.1148,
-   "arousal": -0.3241,
+   "valence": 0.2887,
+   "arousal": -0.0772,
    "true_valence": -0.035,
    "true_arousal": -0.25
   },
@@ -2247,26 +2247,26 @@
    "title": "Thank You",
    "artist": "Xzibit",
    "split": "test",
-   "valence": -0.1068,
-   "arousal": 0.1008,
-   "true_valence": 0.2912,
-   "true_arousal": -0.2888
+   "valence": 0.0163,
+   "arousal": -0.0032,
+   "true_valence": 0.29125,
+   "true_arousal": -0.28875
   },
   {
    "title": "Don't Fade Away",
    "artist": "Dead Can Dance",
    "split": "test",
-   "valence": 0.3936,
-   "arousal": -0.3524,
-   "true_valence": -0.3438,
+   "valence": 0.4029,
+   "arousal": -0.3364,
+   "true_valence": -0.34375,
    "true_arousal": -0.3725
   },
   {
    "title": "Grand Ole Opry Song",
    "artist": "The Nitty Gritty Dirt Band",
    "split": "test",
-   "valence": 0.1689,
-   "arousal": -0.2222,
+   "valence": 0.3281,
+   "arousal": -0.1527,
    "true_valence": 0.6125,
    "true_arousal": 0.19
   },
@@ -2274,9 +2274,9 @@
    "title": "Look at Little Sister",
    "artist": "Hank Ballard & the Midnighters",
    "split": "test",
-   "valence": 0.6132,
-   "arousal": 0.0294,
-   "true_valence": 0.6088,
+   "valence": 0.5777,
+   "arousal": -0.0073,
+   "true_valence": 0.60875,
    "true_arousal": 0.4275
   },
   {
@@ -2292,8 +2292,8 @@
    "title": "Sailing to Philadelphia",
    "artist": "Mark Knopfler",
    "split": "test",
-   "valence": 0.4855,
-   "arousal": -0.2665,
+   "valence": 0.4519,
+   "arousal": -0.2754,
    "true_valence": 0.555,
    "true_arousal": -0.155
   },

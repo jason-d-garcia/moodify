@@ -15,6 +15,9 @@ export interface Song {
   true_valence?: number;
   true_arousal?: number;
   split?: "test" | "demo";
+  /** First year on the Billboard year-end Hot 100, and best rank across years. */
+  year?: number;
+  peak_rank?: number;
 }
 
 export interface PlacedSong extends Song {

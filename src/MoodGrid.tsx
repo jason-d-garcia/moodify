@@ -7,6 +7,8 @@ interface Props {
   valence: number;
   arousal: number;
   songs: PlacedSong[];
+  /** Smaller, fainter dots for large catalogs. */
+  dense?: boolean;
   matchIds: Set<string>;
   hoveredId: string | null;
   onMove: (valence: number, arousal: number) => void;
@@ -22,7 +24,7 @@ const rad = (deg: number) => (deg * Math.PI) / 180;
 const ray = (deg: number, r = 1.5) => `${r * Math.cos(rad(deg))} ${-r * Math.sin(rad(deg))}`;
 const wedge = (from: number, to: number) => `M0 0 L${ray(from)} L${ray(to)} Z`;
 
-export function MoodGrid({ valence, arousal, songs, matchIds, hoveredId, onMove, onHover }: Props) {
+export function MoodGrid({ valence, arousal, songs, dense, matchIds, hoveredId, onMove, onHover }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const active = emotionAt(valence, arousal);
   const dragging = useRef(false);
@@ -103,8 +105,8 @@ export function MoodGrid({ valence, arousal, songs, matchIds, hoveredId, onMove,
         {songs.map((s) => (
           <span
             key={s.id}
-            className={`dot dot-${s.top}${matchIds.has(s.id) ? " is-match" : ""}${hoveredId === s.id ? " is-hovered" : ""}`}
-            style={{ left: left(s.valence), top: top(s.arousal), opacity: 0.35 + s.confidence * 0.65 }}
+            className={`dot${dense ? " dot-sm" : ""} dot-${s.top}${matchIds.has(s.id) ? " is-match" : ""}${hoveredId === s.id ? " is-hovered" : ""}`}
+            style={{ left: left(s.valence), top: top(s.arousal), opacity: dense && !matchIds.has(s.id) ? 0.45 : 0.35 + s.confidence * 0.65 }}
             onPointerEnter={() => onHover(s.id)}
             onPointerLeave={() => onHover(null)}
             title={`${s.title} · ${s.artist}`}

@@ -49,21 +49,33 @@ Warriner word norms, not from listeners rating each song, so they are a noisy ta
 
 | Test split (256 songs) | Valence | Arousal |
 |---|---|---|
-| Pearson r | 0.696 | 0.559 |
-| R² | 0.473 | 0.289 |
-| MAE | 0.238 | 0.189 |
+| Pearson r | 0.724 | 0.605 |
+| R² | 0.520 | 0.358 |
+| MAE | 0.227 | 0.180 |
 | Pearson r, four-class classifier mapped to the circle | 0.462 | 0.106 |
 
 Split: 80/10/10 stratified by quadrant, seed 42, 2,044 training songs; 5 epochs, AdamW 2e-5,
 10% warmup. Predictions are pulled toward the centre (MERGE arousal has a narrow range), and
-the predicted quadrant matches the tagged quadrant for 169 of the 254 songs shown. Excited and
-Alert hold no songs yet. Lyrics only: tempo, key and production are not used.
+the predicted quadrant matches the tagged quadrant for 176 of the 254 test songs. The test songs
+leave Nervous and Tense empty; with the Billboard hits, every one of the 16 sections has songs. Lyrics only: tempo, key and production are not used.
 
 **Attribution.** Valence/arousal labels from MERGE: P. L. Louro, H. Redinho, R. Santos,
 R. Malheiro, R. Panda, R. P. Paiva (2024), *MERGE: A Bimodal Dataset for Static Music Emotion
 Recognition*, [Zenodo 13939205](https://zenodo.org/records/13939205), licensed
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Moodify is non-commercial.
 Lyrics were fetched locally for training and inference and are never stored in this repo.
+
+### Billboard hits
+
+`src/data/billboard.json` holds 5,411 songs from the Billboard year-end Hot 100, 1960–2025
+(chart lists from Wikipedia), placed by the same model over their whole lyric. Of 6,601 chart
+entries, Genius had usable lyrics for 5,717; songs that charted in several years are kept once,
+under their first year with their best rank. These are predictions only, with no labels to check
+them against. The app loads this file after the page is up.
+
+Each song is scored over its whole lyric: long lyrics are split into overlapping 160-token
+windows and the predictions are averaged. On the MERGE test songs this lifts correlation from
+0.70 to 0.72 (valence) and 0.56 to 0.60 (arousal) compared with reading only the first window.
 
 `scripts/score_catalog.py` regenerates a four-class catalog from a checkpoint and a local
 `title, artist, lyrics` CSV; lyrics are only read locally and never written to the output.

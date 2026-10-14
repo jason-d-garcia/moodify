@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import catalogJson from "./data/catalog.json";
 import { MoodGrid } from "./MoodGrid";
 import { MIXED_EMOJI, MOODS, emotionAt, quadrantOf, nearest, placeSong, spotifySearchUrl } from "./mood";
-import type { Mood, Song } from "./mood";
+import type { Mood, PlacedSong, Song } from "./mood";
 
 const MATCH_COUNT = 8;
 const UNCERTAIN_BELOW = 0.5;
@@ -16,13 +16,32 @@ interface Catalog {
   metrics?: { valence: Metric; arousal: Metric; baseline_pearson: { valence: number; arousal: number }; n_train: number };
 }
 const catalog = catalogJson as unknown as Catalog;
+
+type HitRow = [year: number, peakRank: number, title: string, artist: string, valence: number, arousal: number];
+/** The Billboard list is about 300 KB, so it loads after the page is up. */
+const loadHits = () =>
+  import("./data/billboard.json").then((m) =>
+    (m.default as unknown as { songs: HitRow[] }).songs.map(
+      ([year, peak_rank, title, artist, valence, arousal]): Song => ({ title, artist, valence, arousal, year, peak_rank }),
+    ).map(placeSong),
+  );
+const HIT_COUNT = 5411;
+const DECADES = [1960, 1970, 1980, 1990, 2000, 2010, 2020];
+type Collection = "test" | "hits";
 const regression = catalog.source === "bert-va";
 
 const embed =
   new URLSearchParams(window.location.search).has("embed") || window.location.hash === "#embed";
 
 export default function App() {
-  const songs = useMemo(() => (catalog.songs as Song[]).map(placeSong), []);
+  const testSongs = useMemo(() => (catalog.songs as Song[]).map(placeSong), []);
+  const [hitSongs, setHitSongs] = useState<PlacedSong[]>([]);
+  useEffect(() => { loadHits().then(setHitSongs); }, []);
+  const [collection, setCollection] = useState<Collection>("test");
+  const [decade, setDecade] = useState<number | null>(null);
+  const songs = collection === "hits"
+    ? (decade === null ? hitSongs : hitSongs.filter((s) => Math.floor(s.year! / 10) * 10 === decade))
+    : testSongs;
   const [pos, setPos] = useState({ valence: 0.55, arousal: 0.45 });
   const [hideUncertain, setHideUncertain] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -58,6 +77,7 @@ export default function App() {
             valence={pos.valence}
             arousal={pos.arousal}
             songs={pool}
+            dense={collection === "hits"}
             matchIds={matchIds}
             hoveredId={hoveredId}
             onMove={(valence, arousal) => setPos({ valence, arousal })}
@@ -89,6 +109,24 @@ export default function App() {
               Hide uncertain
             </label>}
           </div>
+          <div className="collection" role="group" aria-label="Songs to show">
+            <button type="button" className="chip-btn" aria-pressed={collection === "test"} onClick={() => setCollection("test")}>
+              Test songs · {testSongs.length}
+            </button>
+            <button type="button" className="chip-btn" aria-pressed={collection === "hits"} onClick={() => setCollection("hits")}>
+              Billboard hits · {(hitSongs.length || HIT_COUNT).toLocaleString()}
+            </button>
+          </div>
+          {collection === "hits" && (
+            <div className="decades" role="group" aria-label="Decade">
+              <button type="button" className="chip-btn" aria-pressed={decade === null} onClick={() => setDecade(null)}>All years</button>
+              {DECADES.map((d) => (
+                <button key={d} type="button" className="chip-btn" aria-pressed={decade === d} onClick={() => setDecade(d)}>
+                  {`’${String(d).slice(2)}s`}
+                </button>
+              ))}
+            </div>
+          )}
           {illustrative && (
             <p className="notice">
               Demo catalog. These mood scores are illustrative placeholders until the BERT model
@@ -109,6 +147,7 @@ export default function App() {
                   <span className="track-artist">
                     {s.artist}
                     {" · "}{emotionAt(s.valence, s.arousal)?.name ?? "Mixed"}
+                    {s.year !== undefined && <>{" · "}{s.year}, #{s.peak_rank}</>}
                     {s.true_mood && (
                       <span className={s.true_mood === s.top ? "label-ok" : "label-miss"}>
                         {" · labeled "}{LABEL[s.true_mood]}
@@ -160,13 +199,14 @@ export default function App() {
             <>
               <p>
                 A BERT model reads each song's lyrics and predicts its valence and arousal directly,
-                as two numbers between −1 and 1. Its emotion is the section that point lands in. It
+                as two numbers between −1 and 1. Long lyrics are read in overlapping chunks and the
+                chunks are averaged, so the whole song counts, not just the first verse. Its emotion is the section that point lands in. It
                 was fine-tuned on {catalog.metrics.n_train.toLocaleString()} songs from the MERGE
                 dataset, whose valence and arousal scores come from the songs' AllMusic mood tags
                 rather than from listeners rating each song.
               </p>
               <p>
-                Every song on the map is from the held-out test split, so the model never saw it in
+                Every test song is from the held-out test split, so the model never saw it in
                 training. Its predictions correlate with the tagged scores at{" "}
                 {catalog.metrics.valence.pearson.toFixed(2)} for valence and{" "}
                 {catalog.metrics.arousal.pearson.toFixed(2)} for arousal (R²{" "}
@@ -177,6 +217,13 @@ export default function App() {
                 harder to read from words than pleasantness, and tempo, key and production are not
                 used yet. Each song also shows the section its tags put it in, in red when the
                 quadrant differs.
+              </p>
+              <p>
+                The Billboard hits are every song on the year-end Hot 100 from 1960 to 2025 whose
+                lyrics could be found, placed by the same model. They have no mood labels to check
+                against, so their positions are the model's reading of the words alone: a cheerful
+                tune with bleak lyrics lands on the sad side. Songs that charted in more than one
+                year appear once, under their first year, with their best rank.
               </p>
               <p className="fine">
                 Valence and arousal data from MERGE (Louro et al., 2024), licensed{" "}
