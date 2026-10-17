@@ -80,6 +80,7 @@ export default function App() {
 
   const [mode, setMode] = useState<ListMode>("closest");
   const [shuffles, setShuffles] = useState(0);
+  const [showAll, setShowAll] = useState(true);
 
   const pool = useMemo(
     () => (hideUncertain ? songs.filter((s) => s.confidence >= UNCERTAIN_BELOW) : songs),
@@ -121,8 +122,8 @@ export default function App() {
           <MoodGrid
             valence={pos.valence}
             arousal={pos.arousal}
-            songs={pool}
-            dense={collection === "hits"}
+            songs={showAll ? pool : matches}
+            dense={collection === "hits" && showAll}
             matchIds={matchIds}
             hoveredId={hoveredId}
             onMove={(valence, arousal) => setPos({ valence, arousal })}
@@ -191,6 +192,10 @@ export default function App() {
               scores real lyrics.
             </p>
           )}
+          <label className="toggle map-toggle" htmlFor="show-all">
+            <input id="show-all" type="checkbox" checked={showAll} onChange={(e) => setShowAll(e.target.checked)} />
+            Show every song on the map
+          </label>
           {mode === "random" && (
             <p className="section-count">
               {inSection.length === 0

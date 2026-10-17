@@ -318,3 +318,4 @@ body {
 .apple:hover { color: var(--fg); text-decoration: underline; }
 .section-count { margin: 0; font-size: 0.8rem; color: var(--muted); }
 .chip-btn:disabled { opacity: 0.45; cursor: default; }
+.map-toggle { margin: -4px 0 12px; }
