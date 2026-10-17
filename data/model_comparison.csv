@@ -1,0 +1,8 @@
+model,training,test_reading,valence_pearson,valence_mae,valence_r2,arousal_pearson,arousal_mae,valence_delta_pearson_vs_live,valence_delta_95ci,arousal_delta_pearson_vs_live,arousal_delta_95ci
+BERT-base-cased (live model),first 160 tokens,whole song,0.724,0.227,0.520,0.605,0.180,,,,
+BERT-base-cased,whole song,whole song,0.713,0.233,0.503,0.582,0.182,-0.012,"[-0.046, +0.022]",-0.022,"[-0.060, +0.017]"
+DeBERTa-v3-base,whole song,whole song,0.751,0.216,0.538,0.523,0.190,0.027,"[-0.019, +0.075]",-0.082,"[-0.160, -0.007]"
+DeBERTa-v3-base,whole song,first window only,0.730,0.225,0.493,0.499,0.190,,,,
+RoBERTa-base,whole song,whole song,0.718,0.235,0.493,0.570,0.189,-0.006,"[-0.051, +0.038]",-0.035,"[-0.086, +0.017]"
+RoBERTa-base,whole song,first window only,0.674,0.247,0.407,0.526,0.195,,,,
+mean baseline,,,,0.452,-0.002,,0.246,,,,

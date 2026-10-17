@@ -77,6 +77,15 @@ Each song is scored over its whole lyric: long lyrics are split into overlapping
 windows and the predictions are averaged. On the MERGE test songs this lifts correlation from
 0.70 to 0.72 (valence) and 0.56 to 0.60 (arousal) compared with reading only the first window.
 
+### Score files and model comparison
+
+[`data/`](data/README.md) has the whole-song scores as CSV (Billboard hits and the MERGE test
+songs) and a comparison of BERT-base against DeBERTa-v3-base and RoBERTa-base trained the same
+way. With paired-bootstrap intervals over the 256 test songs, neither larger encoder was reliably
+better, and DeBERTa was reliably worse at arousal, so the site keeps BERT-base.
+[`notebooks/colab_va_compare.ipynb`](notebooks/colab_va_compare.ipynb) reproduces the comparison
+on a Colab GPU from your own copy of the data.
+
 `scripts/score_catalog.py` regenerates a four-class catalog from a checkpoint and a local
 `title, artist, lyrics` CSV; lyrics are only read locally and never written to the output.
 
