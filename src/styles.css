@@ -316,3 +316,5 @@ body {
 .preview:disabled { cursor: progress; opacity: 0.7; }
 .apple { font-size: 0.72rem; color: var(--muted); text-decoration: none; white-space: nowrap; }
 .apple:hover { color: var(--fg); text-decoration: underline; }
+.section-count { margin: 0; font-size: 0.8rem; color: var(--muted); }
+.chip-btn:disabled { opacity: 0.45; cursor: default; }

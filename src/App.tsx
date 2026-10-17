@@ -7,6 +7,18 @@ import { findPreview } from "./preview";
 import type { Preview } from "./preview";
 
 const MATCH_COUNT = 8;
+const PREVIEW_VOLUME = 0.4;
+type ListMode = "closest" | "random";
+
+/** Up to n items drawn at random without replacement. */
+function sample<T>(items: T[], n: number): T[] {
+  const a = items.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}
 const UNCERTAIN_BELOW = 0.5;
 const LABEL: Record<Mood, string> = { happy: "Happy", angry: "Angry", sad: "Sad", relaxed: "Relaxed" };
 
@@ -55,20 +67,34 @@ export default function App() {
     setLoading((cur) => (cur === s.id ? null : cur));
     if (!p) return;
     el.src = p.audioUrl;
+    el.volume = PREVIEW_VOLUME;
     el.play().then(() => setPlaying(s.id)).catch(() => setPlaying(null));
   };
   const [decade, setDecade] = useState<number | null>(null);
-  const songs = collection === "hits"
+  const songs = useMemo(() => collection === "hits"
     ? (decade === null ? hitSongs : hitSongs.filter((s) => Math.floor(s.year! / 10) * 10 === decade))
-    : testSongs;
+    : testSongs, [collection, decade, hitSongs, testSongs]);
   const [pos, setPos] = useState({ valence: 0.55, arousal: 0.45 });
   const [hideUncertain, setHideUncertain] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-  const pool = hideUncertain ? songs.filter((s) => s.confidence >= UNCERTAIN_BELOW) : songs;
-  const matches = nearest(pool, pos.valence, pos.arousal, MATCH_COUNT);
-  const matchIds = new Set(matches.map((m) => m.id));
+  const [mode, setMode] = useState<ListMode>("closest");
+  const [shuffles, setShuffles] = useState(0);
+
+  const pool = useMemo(
+    () => (hideUncertain ? songs.filter((s) => s.confidence >= UNCERTAIN_BELOW) : songs),
+    [hideUncertain, songs],
+  );
   const feeling = emotionAt(pos.valence, pos.arousal);
+  const section = feeling?.name ?? "Mixed";
+  const inSection = useMemo(
+    () => pool.filter((s) => (emotionAt(s.valence, s.arousal)?.name ?? "Mixed") === section),
+    [pool, section],
+  );
+  // Redrawn when the dot enters a new section or the list changes, not on every drag step.
+  const randomPicks = useMemo(() => sample(inSection, MATCH_COUNT), [inSection, shuffles]);
+  const matches = mode === "random" ? randomPicks : nearest(pool, pos.valence, pos.arousal, MATCH_COUNT);
+  const matchIds = new Set(matches.map((m) => m.id));
   const illustrative = catalog.source === "illustrative";
   const labeled = songs.filter((s) => s.true_mood);
   const accuracy = labeled.length ? labeled.filter((s) => s.true_mood === s.top).length / labeled.length : 0;
@@ -117,7 +143,7 @@ export default function App() {
 
         <section className="list-col" aria-label="Matching songs">
           <div className="list-head">
-            <h2>Closest songs</h2>
+            <h2>{mode === "random" ? `Random ${section} songs` : "Closest songs"}</h2>
             {!regression && <label className="toggle" htmlFor="hide-uncertain">
               <input
                 id="hide-uncertain"
@@ -127,6 +153,19 @@ export default function App() {
               />
               Hide uncertain
             </label>}
+          </div>
+          <div className="collection" role="group" aria-label="How to pick songs">
+            <button type="button" className="chip-btn" aria-pressed={mode === "closest"} onClick={() => setMode("closest")}>
+              Closest to the dot
+            </button>
+            <button type="button" className="chip-btn" aria-pressed={mode === "random"} onClick={() => setMode("random")}>
+              Random from {section}
+            </button>
+            {mode === "random" && (
+              <button type="button" className="chip-btn" onClick={() => setShuffles((n) => n + 1)} disabled={inSection.length <= MATCH_COUNT}>
+                <span aria-hidden="true">🎲 </span>Shuffle
+              </button>
+            )}
           </div>
           <div className="collection" role="group" aria-label="Songs to show">
             <button type="button" className="chip-btn" aria-pressed={collection === "test"} onClick={() => setCollection("test")}>
@@ -150,6 +189,13 @@ export default function App() {
             <p className="notice">
               Demo catalog. These mood scores are illustrative placeholders until the BERT model
               scores real lyrics.
+            </p>
+          )}
+          {mode === "random" && (
+            <p className="section-count">
+              {inSection.length === 0
+                ? `No songs land in ${section} yet. Move the dot or pick another list.`
+                : `${inSection.length.toLocaleString()} ${inSection.length === 1 ? "song lands" : "songs land"} in ${section}${inSection.length > MATCH_COUNT ? `; showing ${MATCH_COUNT} at random` : ""}.`}
             </p>
           )}
           <ol className="tracks">
