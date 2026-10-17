@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import catalogJson from "./data/catalog.json";
 import { MoodGrid } from "./MoodGrid";
 import { MIXED_EMOJI, MOODS, emotionAt, quadrantOf, nearest, placeSong, spotifySearchUrl } from "./mood";
 import type { Mood, PlacedSong, Song } from "./mood";
+import { findPreview } from "./preview";
+import type { Preview } from "./preview";
 
 const MATCH_COUNT = 8;
 const UNCERTAIN_BELOW = 0.5;
@@ -38,6 +40,23 @@ export default function App() {
   const [hitSongs, setHitSongs] = useState<PlacedSong[]>([]);
   useEffect(() => { loadHits().then(setHitSongs); }, []);
   const [collection, setCollection] = useState<Collection>("test");
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState<string | null>(null);
+  const [loading, setLoading] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<Record<string, Preview | null>>({});
+
+  const togglePreview = async (s: PlacedSong) => {
+    const el = audio.current;
+    if (!el) return;
+    if (playing === s.id) { el.pause(); return; }
+    setLoading(s.id);
+    const p = await findPreview(s);
+    setPreviews((prev) => ({ ...prev, [s.id]: p }));
+    setLoading((cur) => (cur === s.id ? null : cur));
+    if (!p) return;
+    el.src = p.audioUrl;
+    el.play().then(() => setPlaying(s.id)).catch(() => setPlaying(null));
+  };
   const [decade, setDecade] = useState<number | null>(null);
   const songs = collection === "hits"
     ? (decade === null ? hitSongs : hitSongs.filter((s) => Math.floor(s.year! / 10) * 10 === decade))
@@ -169,6 +188,24 @@ export default function App() {
                 </div>
                 <div className="track-side">
                   {s.confidence < UNCERTAIN_BELOW && <span className="chip">uncertain</span>}
+                  {previews[s.id] === null ? (
+                    <span className="chip">no preview</span>
+                  ) : (
+                    <button
+                      type="button"
+                      className={`preview${playing === s.id ? " is-playing" : ""}`}
+                      onClick={() => togglePreview(s)}
+                      aria-label={`${playing === s.id ? "Pause" : "Play"} preview of ${s.title}`}
+                      disabled={loading === s.id}
+                    >
+                      <span aria-hidden="true">{loading === s.id ? "…" : playing === s.id ? "❚❚" : "▶"}</span>
+                    </button>
+                  )}
+                  {previews[s.id] && (
+                    <a className="apple" href={previews[s.id]!.pageUrl} target="_blank" rel="noreferrer">
+                      Apple Music <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
                   <a className="play" href={spotifySearchUrl(s)} target="_blank" rel="noreferrer">
                     Spotify <span aria-hidden="true">↗</span>
                   </a>
@@ -176,6 +213,7 @@ export default function App() {
               </li>
             ))}
           </ol>
+          <audio ref={audio} onPause={() => setPlaying(null)} onEnded={() => setPlaying(null)} preload="none" />
           {!regression && (
             <ul className="legend" aria-label="Bar colours">
               {MOODS.map((m) => (
