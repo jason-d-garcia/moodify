@@ -319,3 +319,11 @@ body {
 .section-count { margin: 0; font-size: 0.8rem; color: var(--muted); }
 .chip-btn:disabled { opacity: 0.45; cursor: default; }
 .map-toggle { margin: -4px 0 12px; }
+
+/* Rating a song */
+.rate-card { border: 1px solid color-mix(in srgb, var(--fg) 14%, transparent); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.rate-song { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.rate-song .track-title, .rate-song .track-artist { display: block; }
+.rate-prompt { margin: 12px 0 10px; font-size: 0.9rem; }
+.rate-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.rate-privacy { margin: 12px 0 0; font-size: 0.75rem; color: var(--muted); }

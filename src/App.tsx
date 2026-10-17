@@ -5,10 +5,15 @@ import { MIXED_EMOJI, MOODS, emotionAt, quadrantOf, nearest, placeSong, spotifyS
 import type { Mood, PlacedSong, Song } from "./mood";
 import { findPreview } from "./preview";
 import type { Preview } from "./preview";
+import { blend, confidenceLabel, loadFeedback, sendVote, songKey, votedSongs } from "./feedback";
+import type { Agg } from "./feedback";
 
 const MATCH_COUNT = 8;
 const PREVIEW_VOLUME = 0.4;
-type ListMode = "closest" | "random";
+type ListMode = "closest" | "random" | "rate";
+/** Share of rating prompts that ask for a spot before showing the model's, to avoid anchoring. */
+const BLIND_SHARE = 0.3;
+type RateStep = "ask" | "place" | "blind" | "done";
 
 /** Up to n items drawn at random without replacement. */
 function sample<T>(items: T[], n: number): T[] {
@@ -71,9 +76,18 @@ export default function App() {
     el.play().then(() => setPlaying(s.id)).catch(() => setPlaying(null));
   };
   const [decade, setDecade] = useState<number | null>(null);
-  const songs = useMemo(() => collection === "hits"
-    ? (decade === null ? hitSongs : hitSongs.filter((s) => Math.floor(s.year! / 10) * 10 === decade))
-    : testSongs, [collection, decade, hitSongs, testSongs]);
+  const [feedback, setFeedback] = useState<{ shared: boolean; aggs: Record<string, Agg> }>({ shared: false, aggs: {} });
+  useEffect(() => { loadFeedback().then(setFeedback); }, []);
+  const songs = useMemo(() => {
+    const base = collection === "hits"
+      ? (decade === null ? hitSongs : hitSongs.filter((s) => Math.floor(s.year! / 10) * 10 === decade))
+      : testSongs;
+    // Songs listeners have placed move part of the way toward the listeners' median spot.
+    return base.map((s) => {
+      const agg = feedback.aggs[songKey(s)];
+      return agg ? { ...s, ...blend(s, agg) } : s;
+    });
+  }, [collection, decade, hitSongs, testSongs, feedback]);
   const [pos, setPos] = useState({ valence: 0.55, arousal: 0.45 });
   const [hideUncertain, setHideUncertain] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -94,7 +108,42 @@ export default function App() {
   );
   // Redrawn when the dot enters a new section or the list changes, not on every drag step.
   const randomPicks = useMemo(() => sample(inSection, MATCH_COUNT), [inSection, shuffles]);
-  const matches = mode === "random" ? randomPicks : nearest(pool, pos.valence, pos.arousal, MATCH_COUNT);
+  const [rateSong, setRateSong] = useState<PlacedSong | null>(null);
+  const [rateStep, setRateStep] = useState<RateStep>("ask");
+  const [rateBlind, setRateBlind] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const rated = rateSong ? songs.find((s) => s.id === rateSong.id) ?? rateSong : null;
+
+  const nextRating = () => {
+    const done = votedSongs();
+    const blind = Math.random() < BLIND_SHARE;
+    // Blind prompts draw from the whole list so the dot's position gives no hint.
+    const from = (blind ? pool : inSection).filter((s) => !done.has(songKey(s)));
+    const fresh = from.filter((s) => !feedback.aggs[songKey(s)]);
+    const pick = sample(fresh.length ? fresh : from.length ? from : inSection, 1)[0] ?? null;
+    setRateSong(pick);
+    setRateBlind(blind);
+    setRateStep(blind ? "blind" : "ask");
+    if (pick && !blind) setPos({ valence: pick.valence, arousal: pick.arousal });
+  };
+
+  const vote = async (agree: boolean) => {
+    if (!rated) return;
+    setSaving(true);
+    const at = agree ? { v: rated.valence, a: rated.arousal } : { v: pos.valence, a: pos.arousal };
+    await sendVote({ song: songKey(rated), ...at, blind: rateBlind, agree });
+    setFeedback(await loadFeedback());
+    setSaving(false);
+    setRateStep("done");
+    if (rateBlind) setPos({ valence: rated.valence, arousal: rated.arousal });
+  };
+
+  const startRating = () => { setMode("rate"); nextRating(); };
+
+  const hideRated = mode === "rate" && rateStep === "blind";
+  const matches = mode === "rate"
+    ? (rated && !hideRated ? [rated] : [])
+    : mode === "random" ? randomPicks : nearest(pool, pos.valence, pos.arousal, MATCH_COUNT);
   const matchIds = new Set(matches.map((m) => m.id));
   const illustrative = catalog.source === "illustrative";
   const labeled = songs.filter((s) => s.true_mood);
@@ -122,7 +171,7 @@ export default function App() {
           <MoodGrid
             valence={pos.valence}
             arousal={pos.arousal}
-            songs={showAll ? pool : matches}
+            songs={hideRated ? (showAll ? pool.filter((s) => s.id !== rated?.id) : []) : showAll ? pool : matches}
             dense={collection === "hits" && showAll}
             matchIds={matchIds}
             hoveredId={hoveredId}
@@ -144,7 +193,7 @@ export default function App() {
 
         <section className="list-col" aria-label="Matching songs">
           <div className="list-head">
-            <h2>{mode === "random" ? `Random ${section} songs` : "Closest songs"}</h2>
+            <h2>{mode === "rate" ? "Rate a song" : mode === "random" ? `Random ${section} songs` : "Closest songs"}</h2>
             {!regression && <label className="toggle" htmlFor="hide-uncertain">
               <input
                 id="hide-uncertain"
@@ -161,6 +210,9 @@ export default function App() {
             </button>
             <button type="button" className="chip-btn" aria-pressed={mode === "random"} onClick={() => setMode("random")}>
               Random from {section}
+            </button>
+            <button type="button" className="chip-btn" aria-pressed={mode === "rate"} onClick={startRating}>
+              Rate a song
             </button>
             {mode === "random" && (
               <button type="button" className="chip-btn" onClick={() => setShuffles((n) => n + 1)} disabled={inSection.length <= MATCH_COUNT}>
@@ -203,7 +255,70 @@ export default function App() {
                 : `${inSection.length.toLocaleString()} ${inSection.length === 1 ? "song lands" : "songs land"} in ${section}${inSection.length > MATCH_COUNT ? `; showing ${MATCH_COUNT} at random` : ""}.`}
             </p>
           )}
-          <ol className="tracks">
+          {mode === "rate" && (
+            <div className="rate-card" aria-live="polite">
+              {!rated ? (
+                <p className="section-count">No songs here yet. Move the dot to another feeling.</p>
+              ) : (
+                <>
+                  <div className="rate-song">
+                    <div>
+                      <span className="track-title">{rated.title}</span>
+                      <span className="track-artist">{rated.artist}{rated.year !== undefined && ` · ${rated.year}`}</span>
+                    </div>
+                    <button
+                      type="button"
+                      className={`preview${playing === rated.id ? " is-playing" : ""}`}
+                      onClick={() => togglePreview(rated)}
+                      aria-label={`${playing === rated.id ? "Pause" : "Play"} preview of ${rated.title}`}
+                      disabled={loading === rated.id || previews[rated.id] === null}
+                    >
+                      <span aria-hidden="true">{loading === rated.id ? "…" : playing === rated.id ? "❚❚" : "▶"}</span>
+                    </button>
+                  </div>
+                  {rateStep === "ask" && (
+                    <>
+                      <p className="rate-prompt">
+                        We placed it at <b>{emotionAt(rated.valence, rated.arousal)?.name ?? "Mixed"}</b>. Does that sound right?
+                      </p>
+                      <div className="rate-actions">
+                        <button type="button" className="chip-btn" disabled={saving} onClick={() => vote(true)}>👍 Sounds right</button>
+                        <button type="button" className="chip-btn" disabled={saving} onClick={() => setRateStep("place")}>👎 Not quite</button>
+                      </div>
+                    </>
+                  )}
+                  {(rateStep === "place" || rateStep === "blind") && (
+                    <>
+                      <p className="rate-prompt">
+                        {rateStep === "blind"
+                          ? "Where would you put this song? Drag the light to its feeling, then save."
+                          : "Drag the light to where this song belongs, then save."}
+                        {" "}Now: <b>{section}</b>.
+                      </p>
+                      <div className="rate-actions">
+                        <button type="button" className="chip-btn" aria-pressed="true" disabled={saving} onClick={() => vote(false)}>Save spot</button>
+                        <button type="button" className="chip-btn" disabled={saving} onClick={nextRating}>Skip</button>
+                      </div>
+                    </>
+                  )}
+                  {rateStep === "done" && (
+                    <>
+                      <p className="rate-prompt">
+                        Thanks!{rateBlind && <> We had it at <b>{emotionAt(rated.valence, rated.arousal)?.name ?? "Mixed"}</b>.</>}
+                        {" "}This song: {confidenceLabel(feedback.aggs[songKey(rated)])}.
+                        {!feedback.shared && " Saved on this device for now."}
+                      </p>
+                      <div className="rate-actions">
+                        <button type="button" className="chip-btn" onClick={nextRating}>Next song</button>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+              <p className="rate-privacy">Ratings are anonymous: we keep the song, the spot you chose and a random ID for this browser.</p>
+            </div>
+          )}
+          {mode !== "rate" && <ol className="tracks">
             {matches.map((s, i) => (
               <li
                 key={s.id}
@@ -263,7 +378,7 @@ export default function App() {
                 </div>
               </li>
             ))}
-          </ol>
+          </ol>}
           <audio ref={audio} onPause={() => setPlaying(null)} onEnded={() => setPlaying(null)} preload="none" />
           {!regression && (
             <ul className="legend" aria-label="Bar colours">

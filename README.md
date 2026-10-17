@@ -89,6 +89,22 @@ on a Colab GPU from your own copy of the data.
 `scripts/score_catalog.py` regenerates a four-class catalog from a checkpoint and a local
 `title, artist, lyrics` CSV; lyrics are only read locally and never written to the output.
 
+## Listener ratings
+
+"Rate a song" shows one song from the feeling under the dot. A listener can confirm the spot (👍) or
+drag the light to where the song belongs (👎). About a third of prompts are blind: the listener
+places the song before seeing the model's spot, so those ratings aren't anchored to it.
+
+A rated song is shown part of the way between the model's prediction and the listeners' median
+placement. The model counts like 3 listeners, so the dot moves toward listeners as more of them
+agree. Confidence grows with the number of listeners and shrinks with their spread. Medians keep a
+few odd ratings from dragging a song across the map. Each browser can rate a song once, and each IP
+is limited to 20 ratings a minute.
+
+Ratings are stored by `api/feedback.js` in Upstash Redis. To turn sharing on, add Upstash for Redis
+to the Vercel project (Storage > Upstash); it sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+Without it, ratings stay in each visitor's own browser.
+
 ## Run
 
 ```bash
